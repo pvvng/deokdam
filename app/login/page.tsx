@@ -19,7 +19,7 @@ export default function LoginPage() {
           <section className="text-center space-y-5">
             <div>
               <h1 className="text-4xl font-bold">덕담</h1>
-              <h2 className="font-medium text-neutral-600">SNS 간편 로그인</h2>
+              <h2 className="font-medium text-neutral-600">간편 로그인</h2>
             </div>
             <KakaoLoginButton />
             <Link
