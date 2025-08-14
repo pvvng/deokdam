@@ -7,8 +7,8 @@ export default function KakaoLoginButton() {
   return (
     <button
       onClick={handleKakaoLogin}
-      className="w-full max-w-42 bg-[#FEE500] active:scale-95 transition p-3 rounded-lg 
-      flex gap-2 justify-center items-center cursor-pointer"
+      className="shrink-0 w-full max-w-48 bg-[#FEE500] active:scale-95 transition p-2.5 rounded-lg 
+      flex gap-2 justify-center items-center cursor-pointer mx-auto shadow"
     >
       <Image
         src="/kakao-icon.svg"
