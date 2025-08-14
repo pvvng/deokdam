@@ -30,10 +30,7 @@ export default function Navbar() {
           >
             {/* 배경 애니메이션 레이어 */}
             {isActive && (
-              <span
-                className="absolute inset-0 w-full h-full -z-1 
-                bg-gradient-to-r from-blue-600 to-blue-900 animate-fill-right"
-              />
+              <span className="absolute inset-0 w-full h-full -z-1 bg-blue-600 animate-fill-right" />
             )}
             <span
               className={`relative z-10 ${
