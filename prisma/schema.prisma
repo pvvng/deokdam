@@ -12,8 +12,33 @@ model User {
   name       String
   email      String
   providerId String   @unique
-  desc       String?
   avatar     String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  userMessages   Message[]                @relation("Message")
+  allowedMessage AllowedMessageRelation[]
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  payload   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  openAt    DateTime
+  isPublic  Boolean  @default(false)
+
+  writerId String @db.ObjectId
+  writer   User   @relation("Message", fields: [writerId], references: [id])
+
+  allowedUsers AllowedMessageRelation[]
+}
+
+model AllowedMessageRelation {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String @db.ObjectId
+  messageId String @db.ObjectId
+
+  user    User    @relation(fields: [userId], references: [id])
+  message Message @relation(fields: [messageId], references: [id])
 }
