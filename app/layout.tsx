@@ -18,7 +18,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "덕담",
+  title: {
+    default: "덕담 DEOKDAM",
+    template: "%s | 덕담",
+  },
   description:
     "추석엔 마음을 나누는 덕담 한 마디. 덕담에서 가족·친구·연인에게 당신의 따뜻한 말을 전하세요.",
 };

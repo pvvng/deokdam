@@ -3,6 +3,10 @@ import RotateLandScape from "@/components/Main/RotateLandScape";
 import Stars from "@/components/Main/Stars";
 import Link from "next/link";
 
+export const metadata = {
+  title: "로그인",
+};
+
 export default function LoginPage() {
   return (
     <div className="font-paperlogy w-full h-screen mx-auto relative overflow-hidden">

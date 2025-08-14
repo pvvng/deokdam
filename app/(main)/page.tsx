@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="p-5 space-y-12 font-paperlogy max-w-screen-sm mx-auto">
+    <>
       <section className="text-center">
         <h1 className="text-6xl font-bold mb-3">덕담</h1>
         <p className="text-neutral-500">추석엔 마음을 나누는 덕담 한 마디.</p>
@@ -28,6 +28,6 @@ export default function Home() {
           className="object-cover"
         />
       </section>
-    </div>
+    </>
   );
 }
