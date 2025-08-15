@@ -1,13 +1,20 @@
 import KakaoLoginButton from "@/components/Auth/KakaoLoginButton";
 import RotateLandScape from "@/components/Main/RotateLandScape";
 import Stars from "@/components/Main/Stars";
+import { getSession } from "@/lib/session";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "로그인",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await getSession();
+  const userId = session.id;
+
+  if (userId) return redirect("/my-page");
+
   return (
     <div className="font-paperlogy w-full h-screen mx-auto relative overflow-hidden">
       <RotateLandScape>

@@ -1,7 +1,6 @@
-"use client";
 import DeokDamForm from "@/components/Form/DeokdamForm";
 import Chat from "@/components/Main/Chat";
-import PhoneContent from "@/components/Main/PhoneContent";
+import PhoneContent from "@/components/Phone/MainContent";
 import RabbitsChats from "@/components/Main/RabbitsChats";
 import RotateLandScape from "@/components/Main/RotateLandScape";
 import Stars from "@/components/Main/Stars";
