@@ -3,8 +3,8 @@
 import Button from "./Button";
 import TextArea from "./TextArea";
 import CapsuleSelector from "./CapsuleSelector";
+import Calendar from "./Calendar";
 import { useActionState, useState } from "react";
-import DatePicker from "./DatePicker";
 
 export default function DeokDamForm() {
   // const [state, action] = useActionState(postMessage, null);
@@ -28,8 +28,8 @@ export default function DeokDamForm() {
           defaultValue="chuseok"
           onChange={handleOpenAtOptionChange}
         />
-        {openAtOption === "custom" && <></>}
       </section>
+      {openAtOption === "custom" && <Calendar />}
 
       <section className="space-y-3 text-start border border-neutral-100 rounded-2xl p-5 shadow">
         <CapsuleSelector
