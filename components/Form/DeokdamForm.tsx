@@ -3,8 +3,8 @@
 import Button from "./Button";
 import TextArea from "./TextArea";
 import CapsuleSelector from "./CapsuleSelector";
-import Calendar from "./Calendar";
 import { useActionState, useState } from "react";
+import DatePicker from "../DatePicker";
 
 export default function DeokDamForm() {
   // const [state, action] = useActionState(postMessage, null);
@@ -20,16 +20,16 @@ export default function DeokDamForm() {
   };
 
   return (
-    <form className="space-y-5">
+    <form className="relative space-y-5">
       <section className="space-y-3 text-start border border-neutral-100 rounded-2xl p-5 shadow">
         <CapsuleSelector
           label="덕담 개봉 가능일"
           options={openAtOptions}
           defaultValue="chuseok"
           onChange={handleOpenAtOptionChange}
+          renderSelector={<DatePicker onChange={() => {}} />}
         />
       </section>
-      {openAtOption === "custom" && <Calendar />}
 
       <section className="space-y-3 text-start border border-neutral-100 rounded-2xl p-5 shadow">
         <CapsuleSelector
@@ -52,7 +52,6 @@ const openAtOptions = [
   { value: "1day", label: "내일" },
   { value: "3day", label: "3일 후" },
   { value: "7day", label: "일주일 후" },
-  { value: "custom", label: "직접 선택" },
 ];
 
 const publicOptions = [

@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 
 interface CapsuleOption {
@@ -11,6 +12,7 @@ interface CapsuleSelectorProps {
   options: CapsuleOption[];
   defaultValue?: string;
   onChange?: (value: string) => void;
+  renderSelector?: React.ReactNode;
 }
 
 export default function CapsuleSelector({
@@ -18,6 +20,7 @@ export default function CapsuleSelector({
   options,
   defaultValue,
   onChange,
+  renderSelector,
 }: CapsuleSelectorProps) {
   const [selected, setSelected] = useState<string | undefined>(defaultValue);
 
@@ -46,6 +49,8 @@ export default function CapsuleSelector({
             {opt.label}
           </button>
         ))}
+        {/* option 이외의 커스텀 셀렉터 렌더 */}
+        {renderSelector}
       </div>
     </div>
   );

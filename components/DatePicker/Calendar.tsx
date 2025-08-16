@@ -68,7 +68,10 @@ export default function Calendar() {
   ];
 
   return (
-    <div className="w-65 rounded-2xl shadow border border-neutral-100 overflow-hidden">
+    <div
+      className="w-65 rounded-2xl shadow border border-neutral-100 overflow-hidden
+      bg-white/80 backdrop-blur"
+    >
       {/* 상단 네비게이션 */}
       <div className="flex justify-between items-center px-5 pt-4 pb-2 text-xs">
         <div className="flex items-center">
