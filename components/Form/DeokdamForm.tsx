@@ -33,10 +33,10 @@ export default function DeokDamForm() {
     formdata.append("openAt", openAt);
     formdata.append("isPublic", publicOption);
 
-    startTransition(() => action(formdata));
+    startTransition(() => {
+      action(formdata);
+    });
   };
-
-  console.log(state?.success);
 
   return (
     <form onSubmit={handleSubmit} className="relative space-y-5">

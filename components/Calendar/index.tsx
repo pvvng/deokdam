@@ -6,10 +6,11 @@ import WeekDaysHeader from "./WeekDaysHeader";
 import { useState } from "react";
 
 interface CalendarProps {
+  value: Date | null;
   onSelect?: (date: Date) => void;
 }
 
-export default function Calendar({ onSelect }: CalendarProps) {
+export default function Calendar({ value, onSelect }: CalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const year = currentMonth.getFullYear();
@@ -27,7 +28,12 @@ export default function Calendar({ onSelect }: CalendarProps) {
       />
       <div className="p-4 space-y-4 text-xs">
         <WeekDaysHeader />
-        <DateGrid year={year} month={month} onSelect={onSelect} />
+        <DateGrid
+          year={year}
+          month={month}
+          selectedDate={value}
+          onSelect={onSelect}
+        />
       </div>
     </div>
   );

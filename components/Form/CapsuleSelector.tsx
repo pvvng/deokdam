@@ -49,13 +49,15 @@ export default function CapsuleSelector({
         {/* option 이외의 커스텀 셀렉터 렌더 */}
         {renderSelector}
       </div>
-      <div className="space-y-1">
-        {errors?.map((error) => (
-          <p key={error} className="text-sm text-red-600">
-            {error}
-          </p>
-        ))}
-      </div>
+      {errors && (
+        <div className="space-y-1">
+          {errors.map((error) => (
+            <p key={error} className="text-sm text-red-600">
+              {error}
+            </p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
