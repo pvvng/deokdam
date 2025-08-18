@@ -11,7 +11,7 @@ interface CalendarProps {
 }
 
 export default function Calendar({ value, onSelect }: CalendarProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(value ?? new Date());
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
