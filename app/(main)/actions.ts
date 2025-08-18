@@ -4,6 +4,7 @@ import db from "@/lib/db";
 import { getObjectId } from "@/lib/getObjectId";
 import { createActionResult, parseOpenAt } from "@/utils";
 import { randomUUID } from "crypto";
+import { redirect } from "next/navigation";
 import z from "zod";
 
 export async function postMessage(_: unknown, formdata: FormData) {
@@ -30,6 +31,11 @@ export async function postMessage(_: unknown, formdata: FormData) {
       isPublic,
       accessToken: !isPublic ? randomUUID() : null,
       openAt: parseOpenAt(result.data.openAt),
+    },
+    select: {
+      id: true,
+      isPublic: true,
+      accessToken: true,
     },
   });
 

@@ -1,6 +1,5 @@
 import KakaoLoginButton from "@/components/Auth/KakaoLoginButton";
-import RotateLandScape from "@/components/Main/RotateLandScape";
-import Stars from "@/components/Main/Stars";
+import RotateStarBackground from "@/components/RotateStarBackground";
 import { getSession } from "@/lib/session";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -17,9 +16,7 @@ export default async function LoginPage() {
 
   return (
     <div className="font-paperlogy w-full h-screen mx-auto relative overflow-hidden">
-      <RotateLandScape>
-        <Stars />
-      </RotateLandScape>
+      <RotateStarBackground />
       {/* modal */}
       <div className="absolute inset-0 w-full h-full flex justify-center items-center p-5">
         <div className="shrink-0 max-w-screen-sm w-full p-5 rounded-2xl bg-neutral-100/80 shadow">

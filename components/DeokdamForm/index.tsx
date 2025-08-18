@@ -1,13 +1,25 @@
 "use client";
 
-import Button from "./Button";
-import TextArea from "./TextArea";
-import CapsuleSelector from "./CapsuleSelector";
+import TextArea from "../FormItems/TextArea";
+import Button from "../FormItems/Button";
 import DatePicker from "../DatePicker";
-import { startTransition, useActionState, useState } from "react";
 import { postMessage } from "@/app/(main)/actions";
+import { startTransition, useActionState, useEffect, useState } from "react";
+import CapsuleSelector from "../FormItems/CapsuleSelector";
 
-export default function DeokDamForm() {
+interface DeokDamFormProps {
+  onActionEnd?: ({
+    id,
+    isPublic,
+    token,
+  }: {
+    id: string;
+    isPublic: boolean;
+    token: string | null;
+  }) => void;
+}
+
+export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   const [state, action] = useActionState(postMessage, null);
   const [openAtOption, setOpenAtOption] = useState<string | null>("chuseok");
   const [customOpenAt, setCustomOpenAt] = useState<Date | null>(null);
@@ -37,6 +49,13 @@ export default function DeokDamForm() {
       action(formdata);
     });
   };
+
+  useEffect(() => {
+    if (state && state.success) {
+      const { id, isPublic, accessToken: token } = state.data;
+      onActionEnd?.({ id, isPublic, token });
+    }
+  }, [state]);
 
   return (
     <form onSubmit={handleSubmit} className="relative space-y-5">

@@ -1,11 +1,10 @@
-import DeokDamForm from "@/components/Form/DeokdamForm";
 import Chat from "@/components/Main/Chat";
 import PhoneContent from "@/components/Phone/MainContent";
 import RabbitsChats from "@/components/Main/RabbitsChats";
-import RotateLandScape from "@/components/Main/RotateLandScape";
-import Stars from "@/components/Main/Stars";
 import Phone from "@/components/Phone";
 import Image from "next/image";
+import RotateStarBackground from "@/components/RotateStarBackground";
+import DeokdamFormContainer from "@/components/DeokdamForm/Container";
 
 export default function Home() {
   return (
@@ -20,9 +19,7 @@ export default function Home() {
         </div>
         <section className="w-full max-w-96 h-96 mx-auto relative rounded-2xl overflow-hidden">
           <RabbitsChats />
-          <RotateLandScape>
-            <Stars />
-          </RotateLandScape>
+          <RotateStarBackground />
           <Image
             src="/덕담_토끼.webp"
             alt="덕담"
@@ -68,7 +65,7 @@ export default function Home() {
           <p>간단하게 안부인사를 보내고 받을 수 있어요.</p>
           <p>작은 마음이 모여 큰 행복이 되는 경험, 지금 바로 시작해 보세요.</p>
         </div>
-        <DeokDamForm />
+        <DeokdamFormContainer />
       </section>
     </>
   );
