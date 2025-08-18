@@ -27,13 +27,16 @@ export default function DeokDamForm() {
     e.preventDefault();
 
     const formdata = new FormData(e.currentTarget);
-    const openAt = openAtOption ?? customOpenAt?.toLocaleDateString() ?? "";
+    const openAt =
+      openAtOption ?? customOpenAt?.toLocaleDateString("ko-KR") ?? "";
 
     formdata.append("openAt", openAt);
     formdata.append("isPublic", publicOption);
 
     startTransition(() => action(formdata));
   };
+
+  console.log(state?.success);
 
   return (
     <form onSubmit={handleSubmit} className="relative space-y-5">
@@ -49,6 +52,7 @@ export default function DeokDamForm() {
               onChange={handleCustomOpenAtChange}
             />
           }
+          errors={state?.error?.openAt}
         />
       </section>
 
@@ -58,10 +62,18 @@ export default function DeokDamForm() {
           options={publicOptions}
           value={publicOption}
           onChange={(option: string) => setPublicOption(option)}
+          errors={state?.error?.isPublic}
         />
       </section>
 
-      <TextArea name="deokdam" placeholder="덕담을 입력해보세요!" required />
+      <TextArea
+        name="deokdam"
+        placeholder="덕담을 입력해보세요!"
+        required
+        minLength={0}
+        maxLength={3000}
+        errors={state?.error?.deokdam}
+      />
       <Button text="덕담 보내기" />
     </form>
   );

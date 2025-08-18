@@ -11,6 +11,7 @@ interface CapsuleSelectorProps {
   value?: string | null;
   onChange?: (value: string) => void;
   renderSelector?: React.ReactNode;
+  errors?: string[];
 }
 
 export default function CapsuleSelector({
@@ -19,6 +20,7 @@ export default function CapsuleSelector({
   value,
   onChange,
   renderSelector,
+  errors,
 }: CapsuleSelectorProps) {
   const handleClick = (value: string) => {
     onChange?.(value);
@@ -46,6 +48,13 @@ export default function CapsuleSelector({
         ))}
         {/* option 이외의 커스텀 셀렉터 렌더 */}
         {renderSelector}
+      </div>
+      <div className="space-y-1">
+        {errors?.map((error) => (
+          <p key={error} className="text-sm text-red-600">
+            {error}
+          </p>
+        ))}
       </div>
     </div>
   );

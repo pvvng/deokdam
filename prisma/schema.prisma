@@ -16,29 +16,18 @@ model User {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  userMessages   Message[]                @relation("Message")
-  allowedMessage AllowedMessageRelation[]
+  userMessages Message[] @relation("Message")
 }
 
 model Message {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  payload   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  openAt    DateTime
-  isPublic  Boolean  @default(false)
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  payload     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  openAt      DateTime
+  isPublic    Boolean  @default(false)
+  accessToken String?
 
-  writerId String @db.ObjectId
-  writer   User   @relation("Message", fields: [writerId], references: [id])
-
-  allowedUsers AllowedMessageRelation[]
-}
-
-model AllowedMessageRelation {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  userId    String @db.ObjectId
-  messageId String @db.ObjectId
-
-  user    User    @relation(fields: [userId], references: [id])
-  message Message @relation(fields: [messageId], references: [id])
+  writerId String? @db.ObjectId
+  writer   User?   @relation("Message", fields: [writerId], references: [id])
 }
