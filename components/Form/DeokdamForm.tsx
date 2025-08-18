@@ -3,31 +3,52 @@
 import Button from "./Button";
 import TextArea from "./TextArea";
 import CapsuleSelector from "./CapsuleSelector";
-import { useActionState, useState } from "react";
 import DatePicker from "../DatePicker";
+import { startTransition, useActionState, useState } from "react";
+import { postMessage } from "@/app/(main)/actions";
 
 export default function DeokDamForm() {
-  // const [state, action] = useActionState(postMessage, null);
-  const [openAtOption, setOpenAtOption] = useState("chuseok");
+  const [state, action] = useActionState(postMessage, null);
+  const [openAtOption, setOpenAtOption] = useState<string | null>("chuseok");
+  const [customOpenAt, setCustomOpenAt] = useState<Date | null>(null);
   const [publicOption, setPublicOption] = useState("0");
 
   const handleOpenAtOptionChange = (option: string) => {
-    setOpenAtOption(option);
+    setCustomOpenAt(null); // 커스텀 날짜 초기화
+    setOpenAtOption(option); // 날짜 변경
   };
 
-  const handlePublicOptionChange = (option: string) => {
-    setPublicOption(option);
+  const handleCustomOpenAtChange = (date: Date) => {
+    setOpenAtOption(null); // 기존 날짜 초기화
+    setCustomOpenAt(date); // 커스텀 날짜 설정
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formdata = new FormData(e.currentTarget);
+    const openAt = openAtOption ?? customOpenAt?.toLocaleDateString() ?? "";
+
+    formdata.append("openAt", openAt);
+    formdata.append("isPublic", publicOption);
+
+    startTransition(() => action(formdata));
   };
 
   return (
-    <form className="relative space-y-5">
+    <form onSubmit={handleSubmit} className="relative space-y-5">
       <section className="space-y-3 text-start border border-neutral-100 rounded-2xl p-5 shadow">
         <CapsuleSelector
           label="덕담 개봉 가능일"
           options={openAtOptions}
-          defaultValue="chuseok"
+          value={openAtOption}
           onChange={handleOpenAtOptionChange}
-          renderSelector={<DatePicker onChange={() => {}} />}
+          renderSelector={
+            <DatePicker
+              value={customOpenAt}
+              onChange={handleCustomOpenAtChange}
+            />
+          }
         />
       </section>
 
@@ -35,8 +56,8 @@ export default function DeokDamForm() {
         <CapsuleSelector
           label="덕담 공개 여부"
           options={publicOptions}
-          defaultValue="0"
-          onChange={handlePublicOptionChange}
+          value={publicOption}
+          onChange={(option: string) => setPublicOption(option)}
         />
       </section>
 

@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 interface CapsuleOption {
   label: string;
   value: string;
@@ -10,7 +8,7 @@ interface CapsuleOption {
 interface CapsuleSelectorProps {
   label: string;
   options: CapsuleOption[];
-  defaultValue?: string;
+  value?: string | null;
   onChange?: (value: string) => void;
   renderSelector?: React.ReactNode;
 }
@@ -18,14 +16,11 @@ interface CapsuleSelectorProps {
 export default function CapsuleSelector({
   label,
   options,
-  defaultValue,
+  value,
   onChange,
   renderSelector,
 }: CapsuleSelectorProps) {
-  const [selected, setSelected] = useState<string | undefined>(defaultValue);
-
   const handleClick = (value: string) => {
-    setSelected(value);
     onChange?.(value);
   };
 
@@ -40,7 +35,7 @@ export default function CapsuleSelector({
             onClick={() => handleClick(opt.value)}
             className={`text-sm px-4 py-1 rounded-full transition shadow cursor-pointer
             ${
-              selected === opt.value
+              value && value === opt.value
                 ? "bg-blue-600 text-white"
                 : "bg-neutral-100 text-gray-800"
             }
