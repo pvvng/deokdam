@@ -1,18 +1,26 @@
 "use server";
 
 import db from "@/lib/db";
+import { upsertUser } from "@/lib/upsertUser";
 import { unstable_cache } from "next/cache";
 
-async function _getUserdata({ userId }: { userId: string }) {
-  const userdata = await db.user.findUnique({
-    where: {
-      id: userId,
-    },
+async function _getUserDeokdam({ userId }: { userId: string | undefined }) {
+  const deokdams = await db.message.findMany({
+    where: { writerId: userId },
+    orderBy: { openAt: "asc" }, // 오름차순
   });
 
-  return userdata;
+  return deokdams;
 }
 
-export const getUserdata = unstable_cache(_getUserdata, ["userdata"], {
-  tags: ["userdata"],
-});
+export const getUserDeokdam = async () => {
+  const userId = await upsertUser();
+
+  return unstable_cache(
+    () => _getUserDeokdam({ userId }),
+    [`user-${userId}-deokdam`],
+    {
+      tags: [`user-${userId}-deokdam`],
+    }
+  )();
+};

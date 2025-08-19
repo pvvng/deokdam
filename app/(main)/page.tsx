@@ -5,10 +5,13 @@ import Phone from "@/components/Phone";
 import Image from "next/image";
 import RotateStarBackground from "@/components/RotateStarBackground";
 import DeokdamFormContainer from "@/components/DeokdamForm/Container";
+import { checkUserId } from "./actions";
 
-export default function Home() {
+export default async function Home() {
+  const userId = await checkUserId();
+
   return (
-    <>
+    <div className="space-y-20">
       <section className="text-center space-y-5">
         <h1 className="text-6xl font-bold">덕담</h1>
         <div>
@@ -67,6 +70,6 @@ export default function Home() {
         </div>
         <DeokdamFormContainer />
       </section>
-    </>
+    </div>
   );
 }

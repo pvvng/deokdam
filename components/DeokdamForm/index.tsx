@@ -4,8 +4,8 @@ import TextArea from "../FormItems/TextArea";
 import Button from "../FormItems/Button";
 import CapsuleSelector from "../FormItems/CapsuleSelector";
 import DatePicker from "../DatePicker";
-import { postMessage } from "@/app/(main)/actions";
 import { startTransition, useActionState, useEffect, useState } from "react";
+import { postDeokdam } from "@/lib/postDeokdam";
 
 interface DeokDamFormProps {
   onActionEnd?: ({
@@ -20,7 +20,7 @@ interface DeokDamFormProps {
 }
 
 export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
-  const [state, action] = useActionState(postMessage, null);
+  const [state, action] = useActionState(postDeokdam, null);
   const [openAtOption, setOpenAtOption] = useState<string | null>("chuseok");
   const [customOpenAt, setCustomOpenAt] = useState<Date | null>(null);
   const [publicOption, setPublicOption] = useState("0");

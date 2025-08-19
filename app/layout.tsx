@@ -38,7 +38,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${paperlogy.variable} antialiased`}
       >
         <div id="portal" />
-        <div className="p-5 space-y-20 font-paperlogy max-w-screen-sm mx-auto">
+        <div className="p-5 font-paperlogy max-w-screen-sm mx-auto">
           <Navbar />
           {children}
         </div>
