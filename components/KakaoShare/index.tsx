@@ -62,7 +62,7 @@ export default function KakaoShareButton({
           <button
             onClick={handleShare}
             className="bg-[#FEE500] p-2 rounded cursor-pointer shadow
-        flex gap-2 justify-center items-center active:scale-95 transition text-black"
+            flex gap-2 justify-center items-center active:scale-95 transition text-black"
           >
             <Image
               src="/kakao-icon.svg"
@@ -76,8 +76,8 @@ export default function KakaoShareButton({
 
           {/* Hover 시 나타나는 label */}
           <span
-            className="absolute bottom-full mb-2 right-0 w-28 rounded
-            bg-black text-white text-xs rounded-br-none px-2 py-1 text-center
+            className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 w-28 rounded
+            bg-black text-white text-xs px-2 py-1 text-center
             opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
           >
             카카오톡으로 공유

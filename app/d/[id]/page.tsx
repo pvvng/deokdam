@@ -44,7 +44,7 @@ export default async function DeokdamDetailPage({
   const openDate = formatDateKorean(new Date(deokdam.openAt));
 
   // 개봉 불가
-  if (!isOpen && !isOwner) {
+  if (!isOpen) {
     return (
       <div
         className="w-full aspect-video rounded-2xl shadow bg-neutral-100 p-5 
@@ -67,7 +67,7 @@ export default async function DeokdamDetailPage({
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-3 border border-neutral-100 rounded-2xl shadow p-5 w-full min-h-30">
       <div className="flex justify-between items-center">
         <div className="flex gap-3 items-center">
           <div className="relative rounded-full bg-blue-600 size-10 flex justify-center items-center p-1">
