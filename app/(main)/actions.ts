@@ -2,7 +2,7 @@
 
 import db from "@/lib/db";
 import { getObjectId } from "@/lib/getObjectId";
-import { createActionResult, parseOpenAt } from "@/utils";
+import { createActionResult, parseOpenAt } from "@/lib/utils";
 import { randomUUID } from "crypto";
 import z from "zod";
 

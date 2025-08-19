@@ -2,7 +2,7 @@
 
 import DateCell from "./DateCell";
 import { Dates } from "./types";
-import { generateCalendarDates } from "@/utils";
+import { generateCalendarDates } from "@/lib/utils";
 
 interface DateGridProps {
   year: number;
