@@ -1,8 +1,9 @@
 "use server";
 
-import { createUserToken } from "@/lib/createUserToken";
 import db from "@/lib/db";
 import { getObjectId } from "@/lib/getObjectId";
+import { getSession } from "@/lib/session";
+import { upsertUser } from "@/lib/upsertUser";
 import { createActionResult, parseOpenAt } from "@/lib/utils";
 import { randomUUID } from "crypto";
 import z from "zod";
@@ -23,6 +24,9 @@ export async function postMessage(_: unknown, formdata: FormData) {
     });
   }
 
+  // 사용자 검색
+  const writerId = await upsertUser();
+
   const isPublic = result.data.isPublic === "1";
   const createResult = await db.message.create({
     data: {
@@ -31,6 +35,7 @@ export async function postMessage(_: unknown, formdata: FormData) {
       isPublic,
       accessToken: !isPublic ? randomUUID() : null,
       openAt: parseOpenAt(result.data.openAt),
+      writerId,
     },
     select: {
       id: true,

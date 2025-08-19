@@ -8,15 +8,10 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  email      String
-  providerId String   @unique
-  avatar     String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  userMessages Message[] @relation("Message")
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
 }
 
 model Message {
@@ -28,6 +23,6 @@ model Message {
   isPublic    Boolean  @default(false)
   accessToken String?
 
-  writerId String? @db.ObjectId
-  writer   User?   @relation("Message", fields: [writerId], references: [id])
+  writer   User   @relation(fields: [writerId], references: [id])
+  writerId String @db.ObjectId
 }
