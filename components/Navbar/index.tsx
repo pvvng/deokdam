@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 
 const links = [
   { link: "/", label: "홈" },
-  { link: "/all", label: "모든 덕담" },
+  { link: "/all", label: "둘러보기" },
   { link: "/my-page", label: "내 덕담" },
-  { link: "/login", label: "로그인" },
+  { link: "/d/add", label: "+ 덕담" },
 ];
 
 export default function Navbar() {
