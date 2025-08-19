@@ -1,5 +1,9 @@
 import DeokdamFormContainer from "@/components/DeokdamForm/Container";
 
+export const metadata = {
+  title: "작성하기",
+};
+
 export default function AddPage() {
   return (
     <div className="space-y-8">
