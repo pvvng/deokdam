@@ -2,11 +2,10 @@
 
 import TextArea from "../FormItems/TextArea";
 import Button from "../FormItems/Button";
+import CapsuleSelector from "../FormItems/CapsuleSelector";
 import DatePicker from "../DatePicker";
 import { postMessage } from "@/app/(main)/actions";
 import { startTransition, useActionState, useEffect, useState } from "react";
-import CapsuleSelector from "../FormItems/CapsuleSelector";
-import { storage } from "@/lib/utils";
 
 interface DeokDamFormProps {
   onActionEnd?: ({
@@ -63,13 +62,6 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
     if (state && state.success) {
       const { id, isPublic, accessToken: token } = state.data;
       initState();
-
-      // 로컬 스토리지에 저장
-      const st = storage<string[]>("dkdm_w", { defaultValue: [] });
-      const writtendIds = st.get();
-      writtendIds.push(id);
-      st.set(writtendIds);
-
       onActionEnd?.({ id, isPublic, token });
     }
   }, [state?.data?.id]);

@@ -1,6 +1,6 @@
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
-  searchParams: { token?: string };
+  searchParams: Promise<{ token: string }>;
 }
 
 export default async function DeokdamDetailPage({
@@ -8,7 +8,7 @@ export default async function DeokdamDetailPage({
   searchParams,
 }: DeokdamDetailPageProps) {
   const id = (await params).id;
-  const token = searchParams.token;
+  const token = (await searchParams).token;
 
   return (
     <div>
