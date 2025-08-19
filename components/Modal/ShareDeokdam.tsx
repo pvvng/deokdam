@@ -1,27 +1,22 @@
 "use client";
 
 import Image from "next/image";
-import KakaoShareButton from "../KakaoShare";
 import Portal from "./Portal";
 import RotateStarBackground from "../RotateStarBackground";
 import Overlay from "./Overlay";
 
 interface ShareDeokDamModalProps {
-  id: string | null;
-  accessToken: string | null;
-  isPublic: boolean | null;
+  children: React.ReactNode;
   onClose: () => void;
 }
 
 export default function ShareDeokDamModal({
-  id,
-  accessToken,
-  isPublic,
+  children,
   onClose,
 }: ShareDeokDamModalProps) {
   return (
     <Portal>
-      <Overlay>
+      <Overlay onClose={onClose}>
         <div
           onClick={(e) => e.stopPropagation()}
           className="relative shrink-0 w-full max-w-80 aspect-square rounded-2xl bg-white 
@@ -36,16 +31,12 @@ export default function ShareDeokDamModal({
             <p className="font-semibold text-gray-400 text-center">
               이 덕담을 공유하면, 카톡을 받은 사용자에게 덕담이 전달됩니다.
             </p>
-            <KakaoShareButton
-              id={id}
-              accessToken={accessToken}
-              isPublic={isPublic}
-            />
+            {children}
             <button
               onClick={onClose}
-              className="text-sm underline underline-offset-2 text-blue-400 cursor-pointer"
+              className="underline underline-offset-2 text-blue-400 hover:text-blue-500 transition cursor-pointer"
             >
-              공유하지 않고 닫기
+              이 창 닫기
             </button>
           </div>
 

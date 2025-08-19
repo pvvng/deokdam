@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ShareDeokDamModal from "../Modal/ShareDeokdam";
 import DeokDamForm from ".";
+import KakaoShareButton from "../KakaoShare";
 
 export default function DeokdamFormContainer() {
   const [showShareModal, setShowShareModal] = useState(false);
@@ -21,12 +22,13 @@ export default function DeokdamFormContainer() {
         }}
       />
       {showShareModal && (
-        <ShareDeokDamModal
-          id={deokdamId}
-          accessToken={accessToken}
-          isPublic={isPublic}
-          onClose={() => setShowShareModal(false)}
-        />
+        <ShareDeokDamModal onClose={() => setShowShareModal(false)}>
+          <KakaoShareButton
+            id={deokdamId}
+            accessToken={accessToken}
+            isPublic={isPublic}
+          />
+        </ShareDeokDamModal>
       )}
     </>
   );

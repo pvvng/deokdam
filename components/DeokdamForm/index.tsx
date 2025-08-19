@@ -24,6 +24,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   const [openAtOption, setOpenAtOption] = useState<string | null>("chuseok");
   const [customOpenAt, setCustomOpenAt] = useState<Date | null>(null);
   const [publicOption, setPublicOption] = useState("0");
+  const [payload, setPayload] = useState("");
 
   const handleOpenAtOptionChange = (option: string) => {
     setCustomOpenAt(null); // 커스텀 날짜 초기화
@@ -51,8 +52,16 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   };
 
   useEffect(() => {
+    const initState = () => {
+      setOpenAtOption("chuseok");
+      setCustomOpenAt(null);
+      setPublicOption("0");
+      setPayload("");
+    };
+
     if (state && state.success) {
       const { id, isPublic, accessToken: token } = state.data;
+      initState();
       onActionEnd?.({ id, isPublic, token });
     }
   }, [state]);
@@ -91,6 +100,8 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
         required
         minLength={0}
         maxLength={3000}
+        value={payload}
+        onChange={(e) => setPayload(e.target.value)}
         errors={state?.error?.deokdam}
       />
       <Button text="덕담 보내기" />

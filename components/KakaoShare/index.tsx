@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import KakaoProvider from "../KakaoProvider";
+import { redirect } from "next/navigation";
 
 interface KakaoShareButtonProps {
   id: string | null;
@@ -15,11 +16,15 @@ export default function KakaoShareButton({
   isPublic,
 }: KakaoShareButtonProps) {
   const handleShare = () => {
-    if (!window.Kakao) return;
-    if (!id || isPublic === null) return;
+    if (!window.Kakao || !id) return;
 
-    // 카카오톡 공유 기능 호출
-    window.Kakao.Share.sendDefault({
+    // path 생성 로직
+    const buildSharePath = () => {
+      return isPublic ? id : `${id}?token=${accessToken}`;
+    };
+
+    // 공유 데이터 구성
+    const shareContent = (path: string) => ({
       objectType: "feed",
       content: {
         title: "덕담이 도착했어요!",
@@ -27,11 +32,17 @@ export default function KakaoShareButton({
         imageUrl:
           "http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
         link: {
-          mobileWebUrl: `${window.location.href}/d/${id}?public=${isPublic}&token=${accessToken}`,
-          webUrl: `${window.location.href}/d/${id}?public=${isPublic}&token=${accessToken}`,
+          mobileWebUrl: `${window.location.origin}/d/${path}`,
+          webUrl: `${window.location.origin}/d/${path}`,
         },
       },
     });
+
+    const path = buildSharePath();
+    window.Kakao.Share.sendDefault(shareContent(path));
+
+    // 덕담 페이지로 리디렉트
+    return redirect(`/d/${id}`);
   };
 
   return (
@@ -49,7 +60,7 @@ export default function KakaoShareButton({
           priority
           draggable={false}
         />
-        <span>카카오 공유</span>
+        <span>카카오톡 공유</span>
       </button>
     </KakaoProvider>
   );
