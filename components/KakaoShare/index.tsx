@@ -8,23 +8,33 @@ interface KakaoShareButtonProps {
   id: string | null;
   accessToken: string | null;
   isPublic: boolean | null;
+  type?: "small" | "normal";
 }
 
 export default function KakaoShareButton({
   id,
   accessToken,
   isPublic,
+  type = "normal",
 }: KakaoShareButtonProps) {
   const handleShare = () => {
     if (!window.Kakao || !id) return;
 
     // path 생성 로직
-    const buildSharePath = () => {
-      return isPublic ? id : `${id}?token=${accessToken}`;
+    const buildSearchParams = () => {
+      if (!isPublic && accessToken) {
+        const params = {
+          id,
+          token: accessToken,
+        };
+        return new URLSearchParams(params).toString();
+      }
+
+      return new URLSearchParams({ id }).toString();
     };
 
     // 공유 데이터 구성
-    const shareContent = (path: string) => ({
+    const shareContent = (params: string) => ({
       objectType: "feed",
       content: {
         title: "덕담이 도착했어요!",
@@ -32,18 +42,50 @@ export default function KakaoShareButton({
         imageUrl:
           "http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
         link: {
-          mobileWebUrl: `${window.location.origin}/d/${path}`,
-          webUrl: `${window.location.origin}/d/${path}`,
+          mobileWebUrl: `${window.location.origin}/api/share?${params}`,
+          webUrl: `${window.location.origin}/api/share?${params}`,
         },
       },
     });
 
-    const path = buildSharePath();
+    const path = buildSearchParams();
     window.Kakao.Share.sendDefault(shareContent(path));
 
     // 덕담 페이지로 리디렉트
     return redirect(`/d/${id}`);
   };
+
+  if (type === "small") {
+    return (
+      <KakaoProvider>
+        <div className="relative group inline-block">
+          <button
+            onClick={handleShare}
+            className="bg-[#FEE500] p-2 rounded cursor-pointer shadow
+        flex gap-2 justify-center items-center active:scale-95 transition text-black"
+          >
+            <Image
+              src="/kakao-icon.svg"
+              alt="카카오 아이콘"
+              width={20}
+              height={20}
+              priority
+              draggable={false}
+            />
+          </button>
+
+          {/* Hover 시 나타나는 label */}
+          <span
+            className="absolute bottom-full mb-2 right-0 w-28 rounded
+            bg-black text-white text-xs rounded-br-none px-2 py-1 text-center
+            opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+          >
+            카카오톡으로 공유
+          </span>
+        </div>
+      </KakaoProvider>
+    );
+  }
 
   return (
     <KakaoProvider>

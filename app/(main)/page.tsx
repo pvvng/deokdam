@@ -1,10 +1,10 @@
-import Chat from "@/components/Main/Chat";
 import PhoneContent from "@/components/Phone/MainContent";
-import RabbitsChats from "@/components/Main/RabbitsChats";
+import RabbitsChats from "@/components/ChatDemo";
 import Phone from "@/components/Phone";
 import Image from "next/image";
 import RotateStarBackground from "@/components/RotateStarBackground";
 import DeokdamFormContainer from "@/components/DeokdamForm/Container";
+import Chat from "@/components/Chat";
 import { checkUserId } from "./actions";
 
 export default async function Home() {
@@ -59,7 +59,7 @@ export default async function Home() {
             있어요.
           </p>
         </div>
-        <Chat />
+        <Chat type="end" text="잘 지내고 있어?" interval={100} />
       </section>
 
       <section className="space-y-5 text-center">

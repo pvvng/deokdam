@@ -1,12 +1,10 @@
-"use client";
-
 import {
   faEnvelope,
   faEnvelopeOpenText,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { useState } from "react";
+import ExpandablePayload from "../ExpandablePayload";
 
 interface CardProps {
   id: string;
@@ -27,8 +25,6 @@ export function Card({
   isOwner,
   accessToken,
 }: CardProps) {
-  const [expanded, setExpanded] = useState(false);
-
   if (!isDeokdamOpen && !isOwner) {
     return (
       <div
@@ -69,27 +65,7 @@ export function Card({
         </div>
         <hr className="border-dashed border-gray-200" />
 
-        <div>
-          <p
-            className={`break-words whitespace-pre-wrap transition-all ${
-              expanded ? "" : "line-clamp-3"
-            }`}
-          >
-            {payload}
-          </p>
-          {payload.length > 100 && ( // 일정 글자 이상일 때만 버튼 표시
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault(); // Link 이동 방지
-                setExpanded((prev) => !prev);
-              }}
-              className="mt-2 text-sm text-blue-600 hover:underline"
-            >
-              {expanded ? "접기" : "더보기"}
-            </button>
-          )}
-        </div>
+        <ExpandablePayload payload={payload} />
       </div>
     </Link>
   );
