@@ -4,7 +4,7 @@ import db from "@/lib/db";
 import { createActionResult } from "@/lib/createActionResult";
 import { getObjectId } from "@/lib/objectId";
 import { parseOpenAt } from "@/lib/utils";
-import { upsertUser } from "./upsertUser";
+import { getUserId } from "./getUserId";
 import { randomUUID } from "crypto";
 import { revalidateTag } from "next/cache";
 import z from "zod";
@@ -26,7 +26,7 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
   }
 
   // 사용자 검색
-  const writerId = await upsertUser();
+  const writerId = await getUserId();
 
   const isPublic = result.data.isPublic === "1";
 

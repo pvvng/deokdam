@@ -5,7 +5,7 @@ import { getObjectId } from "../objectId";
 import { getSession } from "../session";
 
 /** 사용자 생성 후 세션 처리 */
-export async function upsertUser() {
+export async function getUserId() {
   const session = await getSession();
   const userId = session.id;
 
