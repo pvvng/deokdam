@@ -68,8 +68,8 @@ export default function KakaoShareButton({
             <Image
               src="/kakao-icon.svg"
               alt="카카오 아이콘"
-              width={20}
-              height={20}
+              width={15}
+              height={15}
               priority
               draggable={false}
             />

@@ -2,17 +2,22 @@
 
 import { useState } from "react";
 
-export default function ExpandablePayload({ payload }: { payload: string }) {
+export default function ExpandablePayload({
+  canShow = false,
+  payload,
+}: {
+  canShow?: boolean;
+  payload: string;
+}) {
   const [expanded, setExpanded] = useState(false);
-
   return (
     <div>
       <p
         className={`break-words whitespace-pre-wrap transition-all ${
           expanded ? "" : "line-clamp-3"
-        }`}
+        } ${canShow ? "" : "blur-xs"}`}
       >
-        {payload}
+        {canShow ? payload : "아직 열람이 불가능한 덕담입니다."}
       </p>
       {payload.length > 100 && ( // 일정 글자 이상일 때만 버튼 표시
         <button

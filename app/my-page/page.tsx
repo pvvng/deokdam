@@ -14,19 +14,7 @@ export default async function UserPage() {
   const deokdams = await getUserDeokdam({ userId });
 
   if (deokdams.length === 0) {
-    return (
-      <div className="mt-20 space-y-5 text-center">
-        <p className="text-2xl text-center font-semibold">
-          아직 작성한 덕담이 없습니다.
-        </p>
-        <Link
-          href="/d/add"
-          className="inline-block mx-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 transition font-semibold text-white rounded-2xl"
-        >
-          덕담 작성하기
-        </Link>
-      </div>
-    );
+    return <NoDataComponent />;
   }
 
   return (
@@ -37,12 +25,29 @@ export default async function UserPage() {
           id={deokdam.id}
           payload={deokdam.payload}
           openAt={formatDateKorean(new Date(deokdam.openAt))}
-          isDeokdamOpen={isDeokdamOpen(new Date(deokdam.openAt))}
+          isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
           isPublic={deokdam.isPublic}
           accessToken={deokdam.token}
           isOwner={deokdam.writerId === userId}
+          useLink
         />
       ))}
+    </div>
+  );
+}
+
+function NoDataComponent() {
+  return (
+    <div className="mt-20 space-y-5 text-center">
+      <p className="text-2xl text-center font-semibold">
+        아직 작성한 덕담이 없습니다.
+      </p>
+      <Link
+        href="/d/add"
+        className="inline-block mx-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 transition font-semibold text-white rounded-2xl"
+      >
+        덕담 작성하기
+      </Link>
     </div>
   );
 }
