@@ -9,19 +9,19 @@ export const metadata = {
 };
 
 export default async function UserPage() {
-  const deokdams = await getUserDeokdam();
   const session = await getSession();
   const userId = session.id;
+  const deokdams = await getUserDeokdam({ userId });
 
   if (deokdams.length === 0) {
     return (
-      <div className="mt-20 space-y-8 text-center">
+      <div className="mt-20 space-y-5 text-center">
         <p className="text-2xl text-center font-semibold">
           아직 작성한 덕담이 없습니다.
         </p>
         <Link
           href="/d/add"
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 transition font-semibold text-white rounded-2xl"
+          className="inline-block mx-auto px-4 py-2 bg-blue-600 hover:bg-blue-500 transition font-semibold text-white rounded-2xl"
         >
           덕담 작성하기
         </Link>
@@ -39,7 +39,7 @@ export default async function UserPage() {
           openAt={formatDateKorean(new Date(deokdam.openAt))}
           isDeokdamOpen={isDeokdamOpen(new Date(deokdam.openAt))}
           isPublic={deokdam.isPublic}
-          accessToken={deokdam.accessToken}
+          accessToken={deokdam.accessToken?.token}
           isOwner={deokdam.writerId === userId}
         />
       ))}

@@ -13,7 +13,7 @@ interface CardProps {
   isDeokdamOpen: boolean;
   isPublic: boolean;
   isOwner: boolean;
-  accessToken: string | null;
+  accessToken: string | undefined;
 }
 
 export function Card({

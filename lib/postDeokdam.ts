@@ -2,7 +2,7 @@
 
 import { createActionResult } from "@/lib/createActionResult";
 import db from "@/lib/db";
-import { getObjectId } from "@/lib/getObjectId";
+import { getObjectId } from "@/lib/objectId";
 import { upsertUser } from "@/lib/upsertUser";
 import { parseOpenAt } from "@/lib/utils";
 import { randomUUID } from "crypto";
@@ -29,19 +29,29 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
   const writerId = await upsertUser();
 
   const isPublic = result.data.isPublic === "1";
+
   const createResult = await db.message.create({
     data: {
       id: getObjectId(),
       payload: result.data.deokdam,
-      isPublic,
-      accessToken: !isPublic ? randomUUID() : null,
       openAt: parseOpenAt(result.data.openAt),
       writerId,
+      isPublic,
+      // private 덕담은 accessToken도 함께 생성하기
+      accessToken: !isPublic
+        ? {
+            create: {
+              id: getObjectId(),
+              userId: writerId, // 토큰 주인
+              token: randomUUID(), // 토큰 생성
+            },
+          }
+        : undefined,
     },
     select: {
       id: true,
       isPublic: true,
-      accessToken: true,
+      accessToken: { select: { token: true } },
     },
   });
 

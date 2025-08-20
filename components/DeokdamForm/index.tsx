@@ -15,7 +15,7 @@ interface DeokDamFormProps {
   }: {
     id: string;
     isPublic: boolean;
-    token: string | null;
+    token: string | undefined;
   }) => void;
 }
 
@@ -60,9 +60,9 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
     };
 
     if (state && state.success) {
-      const { id, isPublic, accessToken: token } = state.data;
+      const { id, isPublic, accessToken } = state.data;
       initState();
-      onActionEnd?.({ id, isPublic, token });
+      onActionEnd?.({ id, isPublic, token: accessToken?.token });
     }
   }, [state?.data?.id]);
 

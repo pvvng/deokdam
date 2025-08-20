@@ -9,7 +9,6 @@ import {
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
 import ExpandablePayload from "@/components/ExpandablePayload";
 import { getSession } from "@/lib/session";
-import { getAccessTokenSession } from "@/lib/accessToken";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -23,22 +22,11 @@ export default async function DeokdamDetailPage({
   const session = await getSession();
   const userId = session.id;
 
-  const tokenSession = await getAccessTokenSession();
-  const accessTokenSet = new Set(tokenSession.tokens ?? []);
-
   const deokdam = await getUserDeokdam({ id });
 
   if (!deokdam) return notFound();
 
   const isOwner = deokdam.writerId === userId;
-
-  // 비공개 덕담이면 인증 필요
-  const authorized =
-    deokdam.isPublic || // 공개면 누구나 접근 가능
-    isOwner || // 작성자 본인
-    accessTokenSet.has(deokdam.accessToken ?? ""); // 세션에 accessToken 있는 경우
-
-  if (!authorized) return unauthorized();
 
   const isOpen = isDeokdamOpen(new Date(deokdam.openAt));
   const openDate = formatDateKorean(new Date(deokdam.openAt));
@@ -59,7 +47,7 @@ export default async function DeokdamDetailPage({
         </p>
         <KakaoShareButton
           id={deokdam.id}
-          accessToken={deokdam.accessToken}
+          accessToken={deokdam.accessToken?.token}
           isPublic={deokdam.isPublic}
         />
       </div>
@@ -84,7 +72,7 @@ export default async function DeokdamDetailPage({
         <KakaoShareButton
           type="small"
           id={deokdam.id}
-          accessToken={deokdam.accessToken}
+          accessToken={deokdam.accessToken?.token}
           isPublic={deokdam.isPublic}
         />
       </div>

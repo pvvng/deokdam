@@ -8,7 +8,7 @@ import KakaoShareButton from "../KakaoShare";
 export default function DeokdamFormContainer() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [deokdamId, setDeokdamId] = useState<string | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
   const [isPublic, setIsPublic] = useState<boolean | null>(null);
 
   return (

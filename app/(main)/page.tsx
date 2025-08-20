@@ -5,11 +5,8 @@ import Image from "next/image";
 import RotateStarBackground from "@/components/RotateStarBackground";
 import DeokdamFormContainer from "@/components/DeokdamForm/Container";
 import Chat from "@/components/Chat";
-import { checkUserId } from "./actions";
 
 export default async function Home() {
-  // const userId = await checkUserId();
-
   return (
     <div className="space-y-20">
       <section className="text-center space-y-5">
