@@ -7,6 +7,7 @@ export async function GET(req: Request) {
   const id = url.searchParams.get("id");
   const token = url.searchParams.get("token");
 
+  // 엑세스 토큰 세션 추가
   const tokenSession = await getAccessTokenSession();
   const accessTokens = tokenSession.tokens ?? [];
   if (token && !accessTokens.includes(token)) {

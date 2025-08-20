@@ -8,7 +8,7 @@ import Chat from "@/components/Chat";
 import { checkUserId } from "./actions";
 
 export default async function Home() {
-  const userId = await checkUserId();
+  // const userId = await checkUserId();
 
   return (
     <div className="space-y-20">
