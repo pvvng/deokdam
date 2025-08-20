@@ -1,10 +1,10 @@
 "use server";
 
-import { createActionResult } from "@/lib/createActionResult";
 import db from "@/lib/db";
+import { createActionResult } from "@/lib/createActionResult";
 import { getObjectId } from "@/lib/objectId";
-import { upsertUser } from "@/lib/upsertUser";
 import { parseOpenAt } from "@/lib/utils";
+import { upsertUser } from "./upsertUser";
 import { randomUUID } from "crypto";
 import { revalidateTag } from "next/cache";
 import z from "zod";
@@ -30,28 +30,22 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
 
   const isPublic = result.data.isPublic === "1";
 
-  const createResult = await db.message.create({
+  const messageId = getObjectId();
+
+  const createMessageResult = await db.message.create({
     data: {
-      id: getObjectId(),
+      id: messageId,
       payload: result.data.deokdam,
       openAt: parseOpenAt(result.data.openAt),
       writerId,
       isPublic,
-      // private 덕담은 accessToken도 함께 생성하기
-      accessToken: !isPublic
-        ? {
-            create: {
-              id: getObjectId(),
-              userId: writerId, // 토큰 주인
-              token: randomUUID(), // 토큰 생성
-            },
-          }
-        : undefined,
+      // private 덕담만 token 생성
+      token: !isPublic ? randomUUID() : null,
     },
     select: {
       id: true,
       isPublic: true,
-      accessToken: { select: { token: true } },
+      token: true,
     },
   });
 
@@ -59,7 +53,7 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
 
   return createActionResult({
     success: true,
-    data: createResult,
+    data: createMessageResult,
   });
 }
 

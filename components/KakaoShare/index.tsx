@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 interface KakaoShareButtonProps {
   id: string | null;
-  accessToken: string | undefined;
+  accessToken: string | null;
   isPublic: boolean | null;
   type?: "small" | "normal";
 }

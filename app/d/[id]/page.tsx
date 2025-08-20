@@ -47,7 +47,7 @@ export default async function DeokdamDetailPage({
         </p>
         <KakaoShareButton
           id={deokdam.id}
-          accessToken={deokdam.accessToken?.token}
+          accessToken={deokdam.token}
           isPublic={deokdam.isPublic}
         />
       </div>
@@ -72,7 +72,7 @@ export default async function DeokdamDetailPage({
         <KakaoShareButton
           type="small"
           id={deokdam.id}
-          accessToken={deokdam.accessToken?.token}
+          accessToken={deokdam.token}
           isPublic={deokdam.isPublic}
         />
       </div>

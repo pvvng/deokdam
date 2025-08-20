@@ -7,7 +7,6 @@ import { unstable_cache } from "next/cache";
 async function _getDeokdam({ id }: { id: string | undefined }) {
   const deokdam = await db.message.findUnique({
     where: { id: getObjectId(id) },
-    include: { accessToken: { select: { token: true } } },
   });
 
   return deokdam;

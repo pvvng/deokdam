@@ -1,6 +1,6 @@
 import db from "@/lib/db";
+import { upsertUser } from "@/lib/actions";
 import { isObjectId } from "@/lib/objectId";
-import { upsertUser } from "@/lib/upsertUser";
 import { isUUIDv4 } from "@/lib/utils";
 import { notFound, redirect } from "next/navigation";
 
@@ -22,15 +22,6 @@ export async function GET(req: Request) {
     if (!isUUIDv4(accessToken)) {
       return notFound();
     }
-
-    // 해당 유저와 messageId에 대한 엑세스 토큰 생성
-    await db.accessToken.create({
-      data: {
-        token: accessToken,
-        userId,
-        messageId,
-      },
-    });
   }
 
   return redirect(`/d/${messageId}`);

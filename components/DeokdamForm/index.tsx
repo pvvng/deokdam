@@ -5,7 +5,7 @@ import Button from "../FormItems/Button";
 import CapsuleSelector from "../FormItems/CapsuleSelector";
 import DatePicker from "../DatePicker";
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { postDeokdam } from "@/lib/postDeokdam";
+import { postDeokdam } from "@/lib/actions";
 
 interface DeokDamFormProps {
   onActionEnd?: ({
@@ -15,7 +15,7 @@ interface DeokDamFormProps {
   }: {
     id: string;
     isPublic: boolean;
-    token: string | undefined;
+    token: string | null;
   }) => void;
 }
 
@@ -60,9 +60,9 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
     };
 
     if (state && state.success) {
-      const { id, isPublic, accessToken } = state.data;
+      const { id, isPublic, token } = state.data;
       initState();
-      onActionEnd?.({ id, isPublic, token: accessToken?.token });
+      onActionEnd?.({ id, isPublic, token });
     }
   }, [state?.data?.id]);
 

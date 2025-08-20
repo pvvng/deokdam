@@ -39,7 +39,7 @@ export default async function UserPage() {
           openAt={formatDateKorean(new Date(deokdam.openAt))}
           isDeokdamOpen={isDeokdamOpen(new Date(deokdam.openAt))}
           isPublic={deokdam.isPublic}
-          accessToken={deokdam.accessToken?.token}
+          accessToken={deokdam.token}
           isOwner={deokdam.writerId === userId}
         />
       ))}

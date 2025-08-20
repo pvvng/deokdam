@@ -7,7 +7,6 @@ async function _getUserDeokdam({ userId }: { userId: string | undefined }) {
   const deokdams = await db.message.findMany({
     where: { writerId: userId },
     orderBy: { openAt: "asc" }, // 오름차순
-    include: { accessToken: { select: { token: true } } },
   });
 
   return deokdams;
