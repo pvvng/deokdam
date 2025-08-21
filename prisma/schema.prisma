@@ -9,10 +9,10 @@ datasource db {
 
 model User {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  ip               String?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   postAccessTokens String[]
+  posts            Post[]
 }
 
 model Post {
@@ -23,6 +23,8 @@ model Post {
   openAt    DateTime
   isPublic  Boolean   @default(false)
   token     String?   @unique
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String    @db.ObjectId
   comments  Comment[]
 }
 

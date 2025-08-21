@@ -1,8 +1,8 @@
 "use server";
 
 import db from "@/lib/db";
-import { createActionResult } from "@/lib/actions";
-import { getObjectId, isObjectId } from "@/lib/objectId";
+import { createActionResult, findOrCreateUser } from "@/lib/actions";
+import { getObjectId } from "@/lib/objectId";
 import { parseOpenAt } from "@/lib/utils";
 import { getSession } from "../session";
 import { randomUUID } from "crypto";
@@ -25,64 +25,35 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
     });
   }
 
-  // 사용자 검색
   const session = await getSession();
-  const userId = session.id;
+  const sessionId = session.id;
 
-  // 로그인 처리
-  if (!(userId && isObjectId(userId))) {
-    return createActionResult({
-      success: false,
-      error: {
-        deokdam: ["로그인 후 이용 가능합니다."],
-        openAt: undefined,
-        isPublic: undefined,
-      },
-    });
-  }
+  const userdata = await findOrCreateUser(sessionId);
+  const userId = getObjectId(userdata.id);
 
   const isPublic = result.data.isPublic === "1";
 
-  // 아이디 변환
-  const postId = getObjectId();
-  const writerId = getObjectId(userId);
-
-  const createPostRes = await db.post.create({
+  const postRes = await db.post.create({
     data: {
-      id: postId,
-      payload: result.data.deokdam,
       openAt: parseOpenAt(result.data.openAt),
-      writerId,
+      payload: result.data.deokdam,
+      userId,
       isPublic,
+      token: isPublic ? undefined : randomUUID(),
     },
     select: {
       id: true,
       isPublic: true,
+      token: true,
     },
   });
-
-  // 엑세스 토큰 생성
-  const token: string = randomUUID();
-  if (!isPublic) {
-    await db.accessToken.create({
-      data: {
-        postId,
-        userId: writerId,
-        token,
-      },
-      select: {},
-    });
-  }
 
   // revalidate
   revalidateTag(`user-${userId}-deokdam`);
 
   return createActionResult({
     success: true,
-    data: {
-      ...createPostRes,
-      token: !isPublic ? token : null,
-    },
+    data: { ...postRes },
   });
 }
 

@@ -5,7 +5,7 @@ import { getObjectId } from "@/lib/objectId";
 import { unstable_cache } from "next/cache";
 
 async function _getDeokdam({ id }: { id: string | undefined }) {
-  const deokdam = await db.message.findUnique({
+  const deokdam = await db.post.findUnique({
     where: { id: getObjectId(id) },
   });
 
