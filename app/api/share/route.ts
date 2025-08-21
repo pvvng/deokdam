@@ -1,5 +1,5 @@
 import db from "@/lib/db";
-import { isObjectId } from "@/lib/objectId";
+import { getObjectId, isObjectId } from "@/lib/objectId";
 import { isUUIDv4 } from "@/lib/utils";
 import { getUserdata } from "@/lib/actions";
 import { redirect } from "next/navigation";
@@ -18,7 +18,7 @@ export async function GET(req: Request) {
   }
 
   const messageFindRes = await db.message.findUnique({
-    where: { id: messageId },
+    where: { id: getObjectId(messageId) },
     select: {
       id: true,
       token: true,

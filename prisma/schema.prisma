@@ -8,12 +8,15 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  messages     Message[]
-  // 덕담 접근 허가 토큰
-  accessTokens String[]  @default([])
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String
+  providerId String    @unique
+  desc       String?
+  avatar     String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  messages   Message[]
 }
 
 model Message {
@@ -22,9 +25,10 @@ model Message {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   openAt    DateTime
-  writer    User     @relation(fields: [writerId], references: [id], onDelete: Restrict)
+  writer    User     @relation(fields: [writerId], references: [id])
   writerId  String   @db.ObjectId
+
   // 접근 허가 관련
-  isPublic  Boolean  @default(false)
-  token     String?
+  isPublic Boolean @default(false)
+  token    String?
 }

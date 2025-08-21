@@ -41,7 +41,7 @@ export default function KakaoShareButton({
         title: "덕담이 도착했어요!",
         description: "내게 도착한 덕담 확인하기",
         imageUrl:
-          "http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png",
+          "https://imagedelivery.net/MR01-6_39Z4fkK0Q1BsXww/e07a76d1-da5b-42be-30a7-1f14a1b7c200/public",
         link: {
           mobileWebUrl: `${window.location.origin}/api/share?${params}`,
           webUrl: `${window.location.origin}/api/share?${params}`,
@@ -77,11 +77,13 @@ export default function KakaoShareButton({
 
           {/* Hover 시 나타나는 label */}
           <span
-            className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 w-28 rounded
-            bg-black text-white text-xs px-2 py-1 text-center
-            opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+            className="absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 w-28 rounded-lg
+          bg-black text-white text-xs px-2 py-1 text-center
+          opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
           >
             카카오톡으로 공유
+            {/* 꼬리 삼각형 */}
+            <span className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-black"></span>
           </span>
         </div>
       </KakaoProvider>

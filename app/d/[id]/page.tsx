@@ -1,8 +1,10 @@
-import { notFound } from "next/navigation";
-import { getUserDeokdam } from "./actions";
+import { notFound, unauthorized } from "next/navigation";
+import { getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
 import { getSession } from "@/lib/session";
 import { Card } from "@/components/Card";
+import db from "@/lib/db";
+import { getObjectId } from "@/lib/objectId";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -16,9 +18,21 @@ export default async function DeokdamDetailPage({
   const session = await getSession();
   const userId = session.id;
 
-  const deokdam = await getUserDeokdam({ id });
+  const userdata = await db.user.findUnique({
+    where: { id: getObjectId(userId) },
+  });
+  const userAccessToken = userdata?.accessTokens ?? [];
+
+  const deokdam = await getDeokdam({ id });
 
   if (!deokdam) return notFound();
+
+  const isAuthorized =
+    deokdam.isPublic ||
+    deokdam.writerId === userId ||
+    userAccessToken.includes(deokdam.token || "");
+
+  if (!isAuthorized) return unauthorized();
 
   return (
     <Card

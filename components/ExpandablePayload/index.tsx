@@ -2,14 +2,17 @@
 
 import { useState } from "react";
 
+interface ExpandablePayloadProps {
+  canShow?: boolean;
+  payload: string;
+}
+
 export default function ExpandablePayload({
   canShow = false,
   payload,
-}: {
-  canShow?: boolean;
-  payload: string;
-}) {
+}: ExpandablePayloadProps) {
   const [expanded, setExpanded] = useState(false);
+
   return (
     <div>
       <p

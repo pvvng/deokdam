@@ -20,17 +20,21 @@ export default async function UserPage() {
   return (
     <div className="flex flex-col gap-3">
       {deokdams.map((deokdam) => (
-        <Card
+        <Link
           key={deokdam.id}
-          id={deokdam.id}
-          payload={deokdam.payload}
-          openAt={formatDateKorean(new Date(deokdam.openAt))}
-          isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-          isPublic={deokdam.isPublic}
-          accessToken={deokdam.token}
-          isOwner={deokdam.writerId === userId}
-          useLink
-        />
+          href={`/d/${deokdam.id}`}
+          className="transition hover:bg-neutral-100 rounded-2xl"
+        >
+          <Card
+            id={deokdam.id}
+            payload={deokdam.payload}
+            openAt={formatDateKorean(new Date(deokdam.openAt))}
+            isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
+            isPublic={deokdam.isPublic}
+            accessToken={deokdam.token}
+            isOwner={deokdam.writerId === userId}
+          />
+        </Link>
       ))}
     </div>
   );

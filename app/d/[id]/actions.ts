@@ -12,7 +12,7 @@ async function _getDeokdam({ id }: { id: string | undefined }) {
   return deokdam;
 }
 
-export const getUserDeokdam = async ({ id }: { id: string }) => {
+export const getDeokdam = async ({ id }: { id: string }) => {
   return unstable_cache(() => _getDeokdam({ id }), [`deokdam-${id}`], {
     tags: [`deokdam-${id}`],
   })();
