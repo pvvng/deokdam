@@ -1,14 +1,57 @@
+import { findOrCreateUser } from "@/lib/actions";
 import db from "@/lib/db";
-import { getObjectId } from "@/lib/objectId";
+import { getObjectId, isObjectId } from "@/lib/objectId";
 import { getSession } from "@/lib/session";
-import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
-/** token save api route */
 export async function GET(req: Request) {
-  const url = new URL(req.url);
-  const postId = url.searchParams.get("id");
-  const accessToken = url.searchParams.get("token");
+  try {
+    const url = new URL(req.url);
+    const postId = url.searchParams.get("id");
+    const accessToken = url.searchParams.get("token");
 
-  return redirect(`/d/${postId}`);
+    if (!postId || !isObjectId(postId)) {
+      return NextResponse.json({ error: "Invalid postId" }, { status: 400 });
+    }
+
+    const session = await getSession();
+    const sessionId = session.id;
+    const userdata = await findOrCreateUser(sessionId);
+
+    // find post
+    const deokdam = await db.post.findUnique({
+      where: { id: getObjectId(postId) },
+      select: { isPublic: true, token: true },
+    });
+
+    if (!deokdam) {
+      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
+    if (deokdam.isPublic) {
+      return NextResponse.redirect(new URL(`/d/${postId}`, req.url));
+    }
+
+    const isValidToken = accessToken && deokdam.token === accessToken;
+    if (!isValidToken) {
+      return NextResponse.json(
+        { error: "Invalid or missing token" },
+        { status: 401 }
+      );
+    }
+
+    // save accessToken
+    await db.user.update({
+      where: { id: getObjectId(userdata.id) },
+      data: { postAccessTokens: { push: accessToken } },
+    });
+
+    return NextResponse.redirect(new URL(`/d/${postId}`, req.url));
+  } catch (error) {
+    console.error("Token save error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 }
