@@ -1,7 +1,8 @@
+import Card from "@/components/Card";
+import KakaoShareButton from "@/components/KakaoShare";
 import { notFound, unauthorized } from "next/navigation";
 import { findUser, getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
-import Card from "@/components/Card";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -29,13 +30,15 @@ export default async function DeokdamDetailPage({
     <div>
       <Card
         key={deokdam.id}
-        id={deokdam.id}
         payload={deokdam.payload}
         openAt={formatDateKorean(new Date(deokdam.openAt))}
         isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-        accessToken={deokdam.token ?? null}
         isOwner={isOwner}
-      />
+      >
+        <div className="w-full flex justify-end">
+          <KakaoShareButton type="small" id={id} accessToken={deokdam.token} />
+        </div>
+      </Card>
       {/* TODO: comment form */}
       {/* TODO: comment card */}
       {deokdam.comments.map((comment) => (

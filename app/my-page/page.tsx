@@ -31,25 +31,25 @@ export default async function UserPage({ searchParams }: UserPageProps) {
   return (
     <div>
       <TabNav activeTab={tab} />
-
       <section className="space-y-3 mt-5">
-        {data.length === 0 && <NoDataComponent tab={tab} />}
-        {data.map((deokdam) => (
-          <Link
-            key={deokdam.id}
-            href={`/d/${deokdam.id}`}
-            className="transition hover:bg-neutral-100 rounded-2xl block"
-          >
-            <Card
-              id={deokdam.id}
-              payload={deokdam.payload}
-              openAt={formatDateKorean(new Date(deokdam.openAt))}
-              isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-              accessToken={deokdam.token ?? null}
-              isOwner={deokdam.userId === userId}
-            />
-          </Link>
-        ))}
+        {data.length === 0 ? (
+          <NoDataComponent tab={tab} />
+        ) : (
+          data.map((deokdam) => (
+            <Link
+              key={deokdam.id}
+              href={`/d/${deokdam.id}`}
+              className="transition hover:bg-neutral-100 rounded-2xl block"
+            >
+              <Card
+                payload={deokdam.payload}
+                openAt={formatDateKorean(new Date(deokdam.openAt))}
+                isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
+                isOwner={deokdam.userId === userId}
+              />
+            </Link>
+          ))
+        )}
       </section>
     </div>
   );
