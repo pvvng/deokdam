@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 interface KakaoShareButtonProps {
   id: string | null;
-  accessToken: string | null;
+  accessToken: string;
   type?: "small" | "normal";
 }
 
@@ -17,7 +17,6 @@ export default function KakaoShareButton({
 }: KakaoShareButtonProps) {
   const handleShare = () => {
     if (!window.Kakao || !id) return;
-    console.log(accessToken);
 
     // path 생성 로직
     const buildSearchParams = () => {
@@ -29,6 +28,7 @@ export default function KakaoShareButton({
         id,
         token: accessToken,
       };
+
       return new URLSearchParams(params).toString();
     };
 
