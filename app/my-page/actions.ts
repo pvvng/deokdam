@@ -11,7 +11,10 @@ interface IProps {
 async function _getUserDeokdam({ userId }: IProps) {
   const deokdams = await db.post.findMany({
     where: { userId: getObjectId(userId) },
-    orderBy: { openAt: "asc" }, // 오름차순
+    orderBy: [
+      { openAt: "asc" }, // 먼저 openAt 오름차순
+      { createdAt: "asc" }, // openAt 같으면 createdAt 오름차순
+    ],
   });
 
   return deokdams;
@@ -40,9 +43,10 @@ export async function _getReceivedDeokdam({ userId }: IProps) {
     where: {
       token: { in: tokens },
     },
-    orderBy: {
-      openAt: "asc", // 오름차순
-    },
+    orderBy: [
+      { openAt: "asc" }, // 먼저 openAt 오름차순
+      { createdAt: "asc" }, // openAt 같으면 createdAt 오름차순
+    ],
   });
 
   return received;

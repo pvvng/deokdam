@@ -64,7 +64,7 @@ function NoDataComponent({ tab }: { tab: string }) {
           : "받은 덕담이 없습니다."}
       </p>
       <Link
-        href={tab === "written" ? "/d/add" : "/all"}
+        href={tab === "written" ? "/d/add" : "/"}
         className="inline-block mx-auto px-3 py-1 bg-blue-600 hover:bg-blue-500 
           transition font-semibold text-white rounded"
       >
