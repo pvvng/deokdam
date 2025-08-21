@@ -2,6 +2,7 @@ import { findOrCreateUser } from "@/lib/actions";
 import db from "@/lib/db";
 import { getObjectId, isObjectId } from "@/lib/objectId";
 import { getSession } from "@/lib/session";
+import { revalidateTag } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -50,6 +51,9 @@ export async function GET(req: Request) {
       where: { id: getObjectId(userdata.id) },
       data: { postAccessTokens: { push: accessToken } },
     });
+
+    // accessToken 저장할때마다 received 덕담 revalidate
+    revalidateTag(`user-${userdata.id}-received`);
 
     return NextResponse.redirect(new URL(`/d/${postId}`, req.url));
   } catch (error) {

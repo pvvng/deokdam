@@ -1,7 +1,7 @@
 import { notFound, unauthorized } from "next/navigation";
 import { findUser, getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
-import { Card } from "@/components/Card";
+import Card from "@/components/Card";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -38,6 +38,8 @@ export default async function DeokdamDetailPage({
         isPublic={isPublic}
         isOwner={isOwner}
       />
+      {/* TODO: comment form */}
+      {/* TODO: comment card */}
       {deokdam.comments.map((comment) => (
         <div key={comment.id}></div>
       ))}

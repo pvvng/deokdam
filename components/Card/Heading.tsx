@@ -3,28 +3,25 @@ import {
   faEnvelopeOpenText,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import KakaoShareButton from "../KakaoShare";
 
 interface HeadingProps {
+  openAt: string;
   canShow: boolean;
   isPublic: boolean;
-  openAt: string;
-  id: string;
-  accessToken: string | null;
+  isOpen: boolean;
 }
 
 export default function Heading({
   canShow,
   isPublic,
+  isOpen,
   openAt,
-  id,
-  accessToken,
 }: HeadingProps) {
   return (
     <div className="flex gap-3 items-center">
       <div className="relative rounded-full bg-blue-600 size-10 flex justify-center items-center p-1">
         <FontAwesomeIcon
-          icon={canShow ? faEnvelopeOpenText : faEnvelope}
+          icon={isOpen ? faEnvelopeOpenText : faEnvelope}
           className="text-lg text-white"
         />
       </div>
