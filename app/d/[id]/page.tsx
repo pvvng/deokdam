@@ -1,10 +1,7 @@
 import { notFound, unauthorized } from "next/navigation";
-import { getDeokdam } from "./actions";
+import { findUser, getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
-import { getSession } from "@/lib/session";
 import { Card } from "@/components/Card";
-import db from "@/lib/db";
-import { getObjectId } from "@/lib/objectId";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -15,36 +12,35 @@ export default async function DeokdamDetailPage({
 }: DeokdamDetailPageProps) {
   const id = (await params).id;
 
-  const session = await getSession();
-  const userId = session.id;
-
-  const userdata = await db.user.findUnique({
-    where: { id: getObjectId(userId) },
-  });
-
+  const userdata = await findUser();
+  const userId = userdata?.id;
   const userAccessToken = userdata?.postAccessTokens ?? [];
 
   const deokdam = await getDeokdam({ id });
-
   if (!deokdam) return notFound();
 
-  const isAuthorized =
-    deokdam.isPublic ||
-    deokdam.userId === userId ||
-    userAccessToken.includes(deokdam.token ?? "");
-
+  // check authorization
+  const isPublic = deokdam.isPublic;
+  const isOwner = deokdam.userId === userId;
+  const hasAccessToken = userAccessToken.includes(deokdam.token ?? "");
+  const isAuthorized = isPublic || isOwner || hasAccessToken;
   if (!isAuthorized) return unauthorized();
 
   return (
-    <Card
-      key={deokdam.id}
-      id={deokdam.id}
-      payload={deokdam.payload}
-      openAt={formatDateKorean(new Date(deokdam.openAt))}
-      isOwner={deokdam.userId === userId}
-      isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-      isPublic={deokdam.isPublic}
-      accessToken={deokdam.token ?? null}
-    />
+    <div>
+      <Card
+        key={deokdam.id}
+        id={deokdam.id}
+        payload={deokdam.payload}
+        openAt={formatDateKorean(new Date(deokdam.openAt))}
+        isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
+        accessToken={deokdam.token ?? null}
+        isPublic={isPublic}
+        isOwner={isOwner}
+      />
+      {deokdam.comments.map((comment) => (
+        <div key={comment.id}></div>
+      ))}
+    </div>
   );
 }

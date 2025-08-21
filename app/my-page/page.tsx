@@ -5,7 +5,7 @@ import { Card } from "@/components/Card";
 import { getSession } from "@/lib/session";
 
 export const metadata = {
-  title: "내 덕담",
+  title: "마이페이지",
 };
 
 export default async function UserPage() {

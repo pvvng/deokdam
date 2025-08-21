@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { link: "/", label: "홈" },
   { link: "/all", label: "둘러보기" },
-  { link: "/my-page", label: "내 덕담" },
+  { link: "/my-page", label: "마이페이지" },
   { link: "/d/add", label: "+ 덕담" },
 ];
 

@@ -21,7 +21,7 @@ export async function GET(req: Request) {
     // find post
     const deokdam = await db.post.findUnique({
       where: { id: getObjectId(postId) },
-      select: { isPublic: true, token: true },
+      select: { isPublic: true, token: true, userId: true },
     });
 
     if (!deokdam) {
@@ -29,6 +29,11 @@ export async function GET(req: Request) {
     }
 
     if (deokdam.isPublic) {
+      return NextResponse.redirect(new URL(`/d/${postId}`, req.url));
+    }
+
+    // 작성자면 바로 리디렉트
+    if (deokdam.userId === userdata.id) {
       return NextResponse.redirect(new URL(`/d/${postId}`, req.url));
     }
 
