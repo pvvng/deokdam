@@ -8,39 +8,22 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  name         String
-  email        String
-  providerId   String        @unique
-  avatar       String
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  posts        Post[]
-  accessTokens AccessToken[]
-  comments     Comment[]
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  ip               String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  postAccessTokens String[]
 }
 
 model Post {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
-  payload     String
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  openAt      DateTime
-  isPublic    Boolean      @default(false)
-  writer      User?        @relation(fields: [writerId], references: [id], onDelete: SetNull)
-  writerId    String?      @db.ObjectId
-  accessToken AccessToken?
-  comments    Comment[]
-}
-
-model AccessToken {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  token     String   @unique
-  createdAt DateTime @default(now())
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String   @unique @db.ObjectId
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId    String?  @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  payload   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  openAt    DateTime
+  isPublic  Boolean   @default(false)
+  token     String?   @unique
+  comments  Comment[]
 }
 
 model Comment {
@@ -49,6 +32,4 @@ model Comment {
   updatedAt DateTime @updatedAt
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String   @db.ObjectId
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  userId    String?  @db.ObjectId
 }
