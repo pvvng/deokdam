@@ -20,10 +20,9 @@ export default async function DeokdamDetailPage({
   if (!deokdam) return notFound();
 
   // check authorization
-  const isPublic = deokdam.isPublic;
   const isOwner = deokdam.userId === userId;
   const hasAccessToken = userAccessToken.includes(deokdam.token ?? "");
-  const isAuthorized = isPublic || isOwner || hasAccessToken;
+  const isAuthorized = isOwner || hasAccessToken;
   if (!isAuthorized) return unauthorized();
 
   return (
@@ -35,7 +34,6 @@ export default async function DeokdamDetailPage({
         openAt={formatDateKorean(new Date(deokdam.openAt))}
         isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
         accessToken={deokdam.token ?? null}
-        isPublic={isPublic}
         isOwner={isOwner}
       />
       {/* TODO: comment form */}

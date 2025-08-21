@@ -22,15 +22,11 @@ export async function GET(req: Request) {
     // find post
     const deokdam = await db.post.findUnique({
       where: { id: getObjectId(postId) },
-      select: { isPublic: true, token: true, userId: true },
+      select: { token: true, userId: true },
     });
 
     if (!deokdam) {
       return NextResponse.json({ error: "Post not found" }, { status: 404 });
-    }
-
-    if (deokdam.isPublic) {
-      return NextResponse.redirect(new URL(`/d/${postId}`, req.url));
     }
 
     // 작성자면 바로 리디렉트

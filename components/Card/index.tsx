@@ -9,7 +9,6 @@ interface CardProps {
   accessToken: string | null;
   isOpen: boolean;
   isOwner: boolean;
-  isPublic: boolean;
 }
 
 export default function Card({
@@ -19,27 +18,16 @@ export default function Card({
   accessToken,
   isOpen,
   isOwner,
-  isPublic,
 }: CardProps) {
-  const canShow = isOwner || isPublic || isOpen;
+  const canShow = isOwner || isOpen;
 
   return (
     <div className="p-5 w-full min-h-30 border border-neutral-100 shadow rounded-2xl space-y-3">
-      <Heading
-        canShow={canShow}
-        isPublic={isPublic}
-        isOpen={isOpen}
-        openAt={openAt}
-      />
+      <Heading isOpen={isOpen} openAt={openAt} />
       <hr className="border-dashed border-gray-200" />
       <ExpandablePayload canShow={canShow} payload={payload} />
       <div className="w-full flex justify-end">
-        <KakaoShareButton
-          type="small"
-          id={id}
-          accessToken={accessToken}
-          isPublic={isPublic}
-        />
+        <KakaoShareButton type="small" id={id} accessToken={accessToken} />
       </div>
     </div>
   );

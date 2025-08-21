@@ -13,7 +13,6 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
   const data = {
     deokdam: formdata.get("deokdam"),
     openAt: formdata.get("openAt"),
-    isPublic: formdata.get("isPublic"),
   };
 
   const result = postSchema.safeParse(data);
@@ -31,19 +30,15 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
   const userdata = await findOrCreateUser(sessionId);
   const userId = getObjectId(userdata.id);
 
-  const isPublic = result.data.isPublic === "1";
-
   const postRes = await db.post.create({
     data: {
       openAt: parseOpenAt(result.data.openAt),
       payload: result.data.deokdam,
       userId,
-      isPublic,
-      token: isPublic ? undefined : randomUUID(),
+      token: randomUUID(),
     },
     select: {
       id: true,
-      isPublic: true,
       token: true,
     },
   });
@@ -80,5 +75,4 @@ const postSchema = z.object({
     ],
     "허용되지 않은 형식입니다."
   ),
-  isPublic: z.enum(["0", "1"], "허용되지 않은 형식입니다."), // 0 또는 1만 허용
 });

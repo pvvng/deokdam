@@ -5,6 +5,5 @@ export interface Deokdam {
   updatedAt: Date;
   payload: string;
   openAt: Date;
-  isPublic: boolean;
   token: string | null;
 }

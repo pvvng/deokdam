@@ -45,7 +45,6 @@ export default async function UserPage({ searchParams }: UserPageProps) {
               payload={deokdam.payload}
               openAt={formatDateKorean(new Date(deokdam.openAt))}
               isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-              isPublic={deokdam.isPublic}
               accessToken={deokdam.token ?? null}
               isOwner={deokdam.userId === userId}
             />

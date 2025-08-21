@@ -8,22 +8,13 @@ import { startTransition, useActionState, useEffect, useState } from "react";
 import { postDeokdam } from "@/lib/actions";
 
 interface DeokDamFormProps {
-  onActionEnd?: ({
-    id,
-    isPublic,
-    token,
-  }: {
-    id: string;
-    isPublic: boolean;
-    token: string | null;
-  }) => void;
+  onActionEnd?: ({ id, token }: { id: string; token: string | null }) => void;
 }
 
 export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   const [state, action] = useActionState(postDeokdam, null);
   const [openAtOption, setOpenAtOption] = useState<string | null>("chuseok");
   const [customOpenAt, setCustomOpenAt] = useState<Date | null>(null);
-  const [publicOption, setPublicOption] = useState("0");
   const [payload, setPayload] = useState("");
 
   const handleOpenAtOptionChange = (option: string) => {
@@ -44,7 +35,6 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
       openAtOption ?? customOpenAt?.toLocaleDateString("ko-KR") ?? "";
 
     formdata.append("openAt", openAt);
-    formdata.append("isPublic", publicOption);
 
     startTransition(() => {
       action(formdata);
@@ -55,14 +45,13 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
     const initState = () => {
       setOpenAtOption("chuseok");
       setCustomOpenAt(null);
-      setPublicOption("0");
       setPayload("");
     };
 
     if (state && state.success) {
-      const { id, isPublic, token } = state.data;
+      const { id, token } = state.data;
       initState();
-      onActionEnd?.({ id, isPublic, token });
+      onActionEnd?.({ id, token });
     }
   }, [state?.data?.id]);
 
@@ -81,16 +70,6 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
             />
           }
           errors={state?.error?.openAt}
-        />
-      </section>
-
-      <section className="space-y-3 text-start border border-neutral-100 rounded-2xl p-5 shadow">
-        <CapsuleSelector
-          label="덕담 공개 여부"
-          options={publicOptions}
-          value={publicOption}
-          onChange={(option: string) => setPublicOption(option)}
-          errors={state?.error?.isPublic}
         />
       </section>
 
@@ -115,9 +94,4 @@ const openAtOptions = [
   { value: "1day", label: "내일" },
   { value: "3day", label: "3일 후" },
   { value: "7day", label: "일주일 후" },
-];
-
-const publicOptions = [
-  { value: "0", label: "비공개" },
-  { value: "1", label: "공개" },
 ];

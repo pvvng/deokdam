@@ -7,14 +7,12 @@ import { redirect } from "next/navigation";
 interface KakaoShareButtonProps {
   id: string | null;
   accessToken: string | null;
-  isPublic: boolean | null;
   type?: "small" | "normal";
 }
 
 export default function KakaoShareButton({
   id,
   accessToken,
-  isPublic,
   type = "normal",
 }: KakaoShareButtonProps) {
   const handleShare = () => {
@@ -23,15 +21,15 @@ export default function KakaoShareButton({
 
     // path 생성 로직
     const buildSearchParams = () => {
-      if (!isPublic && accessToken) {
-        const params = {
-          id,
-          token: accessToken,
-        };
-        return new URLSearchParams(params).toString();
+      if (!accessToken) {
+        throw new Error("토큰 확인 실패. 다시 시도해주세요.");
       }
 
-      return new URLSearchParams({ id }).toString();
+      const params = {
+        id,
+        token: accessToken,
+      };
+      return new URLSearchParams(params).toString();
     };
 
     // 공유 데이터 구성

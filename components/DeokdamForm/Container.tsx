@@ -9,25 +9,19 @@ export default function DeokdamFormContainer() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [deokdamId, setDeokdamId] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [isPublic, setIsPublic] = useState<boolean | null>(null);
 
   return (
     <>
       <DeokDamForm
-        onActionEnd={({ id, isPublic, token }) => {
+        onActionEnd={({ id, token }) => {
           setDeokdamId(id);
-          setIsPublic(isPublic);
           setAccessToken(token);
           setShowShareModal(true);
         }}
       />
       {showShareModal && (
         <ShareDeokDamModal onClose={() => setShowShareModal(false)}>
-          <KakaoShareButton
-            id={deokdamId}
-            accessToken={accessToken}
-            isPublic={isPublic}
-          />
+          <KakaoShareButton id={deokdamId} accessToken={accessToken} />
         </ShareDeokDamModal>
       )}
     </>
