@@ -29,7 +29,7 @@ model Post {
   isPublic    Boolean      @default(false)
   writer      User?        @relation(fields: [writerId], references: [id], onDelete: SetNull)
   writerId    String?      @db.ObjectId
-  AccessToken AccessToken?
+  accessToken AccessToken?
   comments    Comment[]
 }
 
@@ -39,7 +39,7 @@ model AccessToken {
   createdAt DateTime @default(now())
   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId    String   @unique @db.ObjectId
-  User      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   userId    String?  @db.ObjectId
 }
 

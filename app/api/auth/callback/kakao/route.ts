@@ -97,7 +97,7 @@ export async function GET(req: Request) {
   // 세션 존재하면 얼리리턴
   const session = await getSession();
   if (session.id) {
-    return NextResponse.redirect(new URL(`/user/${session.id}`, req.url));
+    return NextResponse.redirect(new URL(`/my-page`, req.url));
   }
 
   try {
@@ -107,7 +107,7 @@ export async function GET(req: Request) {
     });
     if (findRes !== null) {
       await login(findRes.id);
-      return NextResponse.redirect(new URL(`/user/${findRes.id}`, req.url));
+      return NextResponse.redirect(new URL(`/my-page`, req.url));
     }
   } catch (e) {
     console.error("사용자 검색 중 에러 발생: ", e);
@@ -129,7 +129,7 @@ export async function GET(req: Request) {
       },
     });
     await login(insertRes.id);
-    return NextResponse.redirect(new URL(`/user/${insertRes.id}`, req.url));
+    return NextResponse.redirect(new URL(`/my-page`, req.url));
   } catch (e) {
     console.error("신규 사용자 추가 중 에러 발생: ", e);
     return NextResponse.json(

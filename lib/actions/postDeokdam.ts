@@ -1,13 +1,13 @@
 "use server";
 
 import db from "@/lib/db";
-import { createActionResult } from "@/lib/createActionResult";
-import { getObjectId } from "@/lib/objectId";
+import { createActionResult } from "@/lib/actions";
+import { getObjectId, isObjectId } from "@/lib/objectId";
 import { parseOpenAt } from "@/lib/utils";
-import { getUserId } from "./getUserId";
+import { getSession } from "../session";
 import { randomUUID } from "crypto";
-import { revalidateTag } from "next/cache";
 import z from "zod";
+import { revalidateTag } from "next/cache";
 
 export async function postDeokdam(_: unknown, formdata: FormData) {
   const data = {
@@ -26,34 +26,63 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
   }
 
   // 사용자 검색
-  const writerId = await getUserId();
+  const session = await getSession();
+  const userId = session.id;
+
+  // 로그인 처리
+  if (!(userId && isObjectId(userId))) {
+    return createActionResult({
+      success: false,
+      error: {
+        deokdam: ["로그인 후 이용 가능합니다."],
+        openAt: undefined,
+        isPublic: undefined,
+      },
+    });
+  }
 
   const isPublic = result.data.isPublic === "1";
 
-  const messageId = getObjectId();
+  // 아이디 변환
+  const postId = getObjectId();
+  const writerId = getObjectId(userId);
 
-  const createMessageResult = await db.message.create({
+  const createPostRes = await db.post.create({
     data: {
-      id: messageId,
+      id: postId,
       payload: result.data.deokdam,
       openAt: parseOpenAt(result.data.openAt),
       writerId,
       isPublic,
-      // private 덕담만 token 생성
-      token: !isPublic ? randomUUID() : null,
     },
     select: {
       id: true,
       isPublic: true,
-      token: true,
     },
   });
 
-  revalidateTag(`user-${writerId}-deokdam`);
+  // 엑세스 토큰 생성
+  const token: string = randomUUID();
+  if (!isPublic) {
+    await db.accessToken.create({
+      data: {
+        postId,
+        userId: writerId,
+        token,
+      },
+      select: {},
+    });
+  }
+
+  // revalidate
+  revalidateTag(`user-${userId}-deokdam`);
 
   return createActionResult({
     success: true,
-    data: createMessageResult,
+    data: {
+      ...createPostRes,
+      token: !isPublic ? token : null,
+    },
   });
 }
 

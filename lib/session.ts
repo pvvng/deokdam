@@ -31,3 +31,9 @@ export async function login(id: string) {
   session.id = id;
   await session.save();
 }
+
+/** 사용자 로그아웃 시키는 함수 */
+export async function logout() {
+  const session = await getSession();
+  await session.destroy();
+}
