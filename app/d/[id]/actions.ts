@@ -20,13 +20,19 @@ export const getDeokdam = async ({ id }: { id: string }) => {
   })();
 };
 
-export async function findUser() {
-  const session = await getSession();
-  const userId = session.id;
-
+export async function _findUser({ userId }: { userId: string | undefined }) {
   const userdata = await db.user.findUnique({
     where: { id: getObjectId(userId) },
   });
 
   return userdata;
 }
+
+export const findUser = async () => {
+  const session = await getSession();
+  const userId = session.id;
+
+  return unstable_cache(() => _findUser({ userId }), [`user-${userId}`], {
+    tags: [`user-${userId}`],
+  })();
+};
