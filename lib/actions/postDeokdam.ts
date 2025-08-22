@@ -73,7 +73,7 @@ const postSchema = z.object({
   nickname: z
     .string()
     .min(1, "별명을 입력해주세요.")
-    .max(20, "별명은 최대 20자까지 입력 가능합니다.")
+    .max(10, "별명은 최대 10자까지 입력 가능합니다.")
     .refine((val) => val.trim().length > 0, "공백만 입력할 수 없습니다."),
   openAt: z.union(
     [

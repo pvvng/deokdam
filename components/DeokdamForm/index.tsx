@@ -82,7 +82,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
         name="nickname"
         placeholder="덕담을 보낼 사람에게 보여질 별명을 입력하세요."
         minLength={0}
-        maxLength={20}
+        maxLength={10}
         required
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
