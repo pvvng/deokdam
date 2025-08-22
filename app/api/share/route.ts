@@ -42,14 +42,18 @@ export async function GET(req: Request) {
       );
     }
 
-    // save accessToken
-    await db.user.update({
-      where: { id: getObjectId(userdata.id) },
-      data: { postAccessTokens: { push: accessToken } },
-    });
+    const userAccessToken = userdata.postAccessTokens ?? [];
+    if (!userAccessToken.includes(accessToken)) {
+      // save accessToken
+      await db.user.update({
+        where: { id: getObjectId(userdata.id) },
+        data: { postAccessTokens: { push: accessToken } },
+      });
+    }
 
-    // accessToken 저장할때마다 received 덕담 revalidate
+    // accessToken 저장할때마다 received 덕담/사용자 캐시 정보 revalidate
     revalidateTag(`user-${userdata.id}-received`);
+    revalidateTag(`user-${userdata.id}`);
 
     return NextResponse.redirect(new URL(`/d/${postId}`, req.url));
   } catch (error) {
