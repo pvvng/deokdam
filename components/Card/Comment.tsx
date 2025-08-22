@@ -1,4 +1,9 @@
-import ExpandablePayload from "../ExpandablePayload";
+import {
+  DashedHorizon,
+  ExpandablePayload,
+  Nickname,
+  TimeStamp,
+} from "../CardItems";
 
 interface CommentCardProps {
   nickname: string;
@@ -13,10 +18,10 @@ export default function CommentCard({
   return (
     <div className="w-full space-y-3 min-h-30 p-5 rounded-2xl border border-neutral-100 shadow">
       <div>
-        <p className="font-semibold">{nickname}</p>
-        <p className="text-xs text-gray-500">{createdAt}에 작성</p>
+        <Nickname nickname={nickname} />
+        <TimeStamp timeColor="gray" highlight time={createdAt} label="작성" />
       </div>
-      <hr className="border-dashed border-gray-200" />
+      <DashedHorizon />
       <ExpandablePayload canShow payload={payload} />
     </div>
   );

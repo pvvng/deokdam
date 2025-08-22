@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Portal from "./Portal";
-import RotateStarBackground from "../RotateStarBackground";
 import Overlay from "./Overlay";
+import RotateStarBackground from "../RotateStarBackground";
 
 interface ShareDeokDamModalProps {
   children: React.ReactNode;

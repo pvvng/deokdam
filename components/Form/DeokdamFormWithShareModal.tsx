@@ -5,23 +5,24 @@ import ShareDeokDamModal from "../Modal/ShareDeokdam";
 import DeokDamForm from "./Deokdam";
 import { KakaoShareButton } from "../Kakao";
 
+interface ShareItem {
+  id: string;
+  token: string;
+}
+
 export default function DeokdamFormWithShareModal() {
-  const [showShareModal, setShowShareModal] = useState(false);
-  const [deokdamId, setDeokdamId] = useState<string>("");
-  const [accessToken, setAccessToken] = useState<string>("");
+  const [shareItem, setShareItem] = useState<ShareItem | null>(null);
 
   return (
     <>
       <DeokDamForm
         onActionEnd={({ id, token }) => {
-          setDeokdamId(id);
-          setAccessToken(token);
-          setShowShareModal(true);
+          setShareItem({ id, token });
         }}
       />
-      {showShareModal && (
-        <ShareDeokDamModal onClose={() => setShowShareModal(false)}>
-          <KakaoShareButton id={deokdamId} accessToken={accessToken} />
+      {shareItem && (
+        <ShareDeokDamModal onClose={() => setShareItem(null)}>
+          <KakaoShareButton id={shareItem.id} accessToken={shareItem.token} />
         </ShareDeokDamModal>
       )}
     </>

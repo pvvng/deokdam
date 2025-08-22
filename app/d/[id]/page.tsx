@@ -1,15 +1,25 @@
-import { notFound, unauthorized } from "next/navigation";
+import { CommentsLoading } from "./loading";
+import { KakaoShareButton } from "@/components/Kakao";
+import { CommentForm } from "@/components/Form";
+import { CommentCard, DeokdamCard } from "@/components/Card";
 import { findUser, getComments, getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
 import { Suspense } from "react";
-import { CommentsLoading } from "./loading";
-import DeokdamContent from "@/components/Card/DeokdamContent";
-import { KakaoShareButton } from "@/components/Kakao";
-import { CommentForm } from "@/components/Form";
-import CommentCard from "@/components/CommentCard";
+import { notFound, unauthorized } from "next/navigation";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
+}
+
+export async function generateMetadata({ params }: DeokdamDetailPageProps) {
+  const id = (await params).id;
+  const deokdam = await getDeokdam({ id });
+
+  return {
+    title: deokdam?.nickname
+      ? `${deokdam.nickname}님의 따뜻한 덕담`
+      : "덕담을 확인해보세요!",
+  };
 }
 
 export default async function DeokdamDetailPage({
@@ -32,7 +42,7 @@ export default async function DeokdamDetailPage({
 
   return (
     <div className="space-y-10">
-      <DeokdamContent
+      <DeokdamCard
         key={deokdam.id}
         nickname={deokdam.nickname}
         payload={deokdam.payload}
@@ -43,7 +53,7 @@ export default async function DeokdamDetailPage({
         <div className="w-full flex justify-end">
           <KakaoShareButton type="small" id={id} accessToken={deokdam.token} />
         </div>
-      </DeokdamContent>
+      </DeokdamCard>
 
       <Suspense fallback={<CommentsLoading />}>
         <Comments deokdamId={deokdam.id} />

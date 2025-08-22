@@ -6,7 +6,7 @@ import Chat from "@/components/Chat";
 import DemoChats from "@/components/Chat/Demo";
 import { DeokdamFormWithShareModal } from "@/components/Form";
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className="space-y-20">
       <section className="text-center space-y-5">
