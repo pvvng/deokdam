@@ -57,10 +57,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   }, [state?.data?.id]);
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="relative space-y-5 p-5 rounded-2xl bg-gray-200 shadow"
-    >
+    <form onSubmit={handleSubmit} className="relative space-y-5">
       <div className="text-start">
         <CapsuleSelector
           label="덕담 개봉 가능일"

@@ -14,7 +14,7 @@ export default function Input({
     <div className="space-y-3">
       <input
         className="rounded-2xl w-full h-10 flex justify-center items-center border-none transition 
-        focus:outline-none shadow px-3 bg-white placeholder:text-sm"
+        focus:outline-none shadow px-3 bg-neutral-200 placeholder:text-sm"
         name={name}
         {...rest}
       />

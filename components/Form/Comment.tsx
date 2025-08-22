@@ -1,14 +1,14 @@
 "use client";
 
 import { postComment } from "@/lib/actions";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { Button, Input } from "../FormItems";
 
 export default function CommentForm({ deokdamId }: { deokdamId: string }) {
   const [state, action] = useActionState(postComment, null);
 
   return (
-    <form action={action} className="space-y-5 bg-gray-200 p-5 rounded-2xl">
+    <form action={action} className="space-y-5">
       <p className="text-lg font-semibold">댓글 작성하기</p>
       <input
         defaultValue={deokdamId}

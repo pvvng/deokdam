@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: DeokdamDetailPageProps) {
 
   return {
     title: deokdam?.nickname
-      ? `${deokdam.nickname}님의 따뜻한 덕담`
+      ? `${deokdam.nickname}님이 작성한 덕담`
       : "덕담을 확인해보세요!",
   };
 }
@@ -40,24 +40,32 @@ export default async function DeokdamDetailPage({
   const isAuthorized = isOwner || hasAccessToken;
   if (!isAuthorized) return unauthorized();
 
+  const isOpen = isDeokdamOpen(new Date(deokdam.openAt));
   return (
-    <div className="space-y-15">
+    <div className="space-y-5">
       <DeokdamCard
-        key={deokdam.id}
+        isOpen={isOpen}
+        isOwner={isOwner}
         nickname={deokdam.nickname}
         payload={deokdam.payload}
         openAt={formatDateKorean(new Date(deokdam.openAt))}
-        isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-        isOwner={isOwner}
       >
         <div className="w-full flex justify-end">
-          <KakaoShareButton type="small" id={id} accessToken={deokdam.token} />
+          <KakaoShareButton
+            type="small"
+            id={deokdam.id}
+            accessToken={deokdam.token}
+          />
         </div>
       </DeokdamCard>
+
+      <hr className="border-neutral-200 border-dashed" />
 
       <Suspense fallback={<CommentsLoading />}>
         <Comments deokdamId={deokdam.id} deokdamUserId={deokdam.userId} />
       </Suspense>
+
+      <hr className="border-neutral-200 border-dashed" />
 
       <CommentForm deokdamId={deokdam.id} />
     </div>

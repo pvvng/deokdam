@@ -39,7 +39,7 @@ export default function CapsuleSelector({
             ${
               value && value === opt.value
                 ? "bg-blue-600 text-white"
-                : "bg-white text-gray-800"
+                : "bg-neutral-200 text-gray-800"
             }
           `}
           >

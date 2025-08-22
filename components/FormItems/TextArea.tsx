@@ -13,7 +13,7 @@ export default function TextArea({
   return (
     <div className="space-y-3">
       <textarea
-        className="w-full h-96 bg-white rounded-2xl resize-none p-3 shadow placeholder:text-sm focus:outline-none"
+        className="w-full h-96 bg-neutral-200 rounded-2xl resize-none p-3 shadow placeholder:text-sm focus:outline-none"
         name={name}
         {...rest}
       />
