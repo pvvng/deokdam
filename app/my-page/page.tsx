@@ -1,4 +1,4 @@
-import Card from "@/components/Card";
+import Card from "@/components/DeokdamCard";
 import TabNav from "@/components/MyPageTabNav";
 import { getReceivedDeokdam, getUserDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";

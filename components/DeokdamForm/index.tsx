@@ -48,6 +48,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
       setOpenAtOption("chuseok");
       setCustomOpenAt(null);
       setPayload("");
+      setNickname("");
     };
 
     if (state && state.success) {

@@ -8,7 +8,6 @@ import { unstable_cache } from "next/cache";
 async function _getDeokdam({ id }: { id: string | undefined }) {
   const deokdam = await db.post.findUnique({
     where: { id: getObjectId(id) },
-    include: { comments: true },
   });
 
   return deokdam;
@@ -35,4 +34,22 @@ export const findUser = async () => {
   return unstable_cache(() => _findUser({ userId }), [`user-${userId}`], {
     tags: [`user-${userId}`],
   })();
+};
+
+export async function _getComments({ deokdamId }: { deokdamId: string }) {
+  const comments = await db.comment.findMany({
+    where: { postId: getObjectId(deokdamId) },
+  });
+
+  return comments;
+}
+
+export const getComments = async ({ deokdamId }: { deokdamId: string }) => {
+  return unstable_cache(
+    () => _getComments({ deokdamId }),
+    [`comments-${deokdamId}`],
+    {
+      tags: [`comments-${deokdamId}`],
+    }
+  )();
 };
