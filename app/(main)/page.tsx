@@ -3,7 +3,7 @@ import RabbitsChats from "@/components/ChatDemo";
 import Phone from "@/components/Phone";
 import Image from "next/image";
 import RotateStarBackground from "@/components/RotateStarBackground";
-import DeokdamFormContainer from "@/components/DeokdamForm/Container";
+import DeokdamFormWithShareModal from "@/components/DeokdamForm/Container";
 import Chat from "@/components/Chat";
 
 export default async function Home() {
@@ -65,7 +65,8 @@ export default async function Home() {
           <p>간단하게 안부인사를 보내고 받을 수 있어요.</p>
           <p>작은 마음이 모여 큰 행복이 되는 경험, 지금 바로 시작해 보세요.</p>
         </div>
-        <DeokdamFormContainer />
+
+        <DeokdamFormWithShareModal />
       </section>
     </div>
   );

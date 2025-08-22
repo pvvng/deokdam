@@ -1,10 +1,11 @@
-import Card from "@/components/DeokdamCard";
 import TabNav from "@/components/MyPageTabNav";
 import { getReceivedDeokdam, getUserDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
 import { getSession } from "@/lib/session";
 import { Deokdam } from "@/types/deokdam";
 import Link from "next/link";
+import DeokdamContent from "@/components/Card/DeokdamContent";
+import CardWrapper from "@/components/Card/Wrapper";
 
 export const metadata = {
   title: "마이페이지",
@@ -13,6 +14,7 @@ export const metadata = {
 interface UserPageProps {
   searchParams: Promise<{ tab?: string }>;
 }
+
 export default async function UserPage({ searchParams }: UserPageProps) {
   const session = await getSession();
   const userId = session.id;
@@ -41,13 +43,15 @@ export default async function UserPage({ searchParams }: UserPageProps) {
               href={`/d/${deokdam.id}`}
               className="transition hover:bg-neutral-100 rounded-2xl block"
             >
-              <Card
-                nickname={deokdam.nickname}
-                payload={deokdam.payload}
-                openAt={formatDateKorean(new Date(deokdam.openAt))}
-                isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-                isOwner={deokdam.userId === userId}
-              />
+              <CardWrapper>
+                <DeokdamContent
+                  nickname={deokdam.nickname}
+                  payload={deokdam.payload}
+                  openAt={formatDateKorean(new Date(deokdam.openAt))}
+                  isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
+                  isOwner={deokdam.userId === userId}
+                />
+              </CardWrapper>
             </Link>
           ))
         )}

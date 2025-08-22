@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import KakaoProvider from "../KakaoProvider";
 import { redirect } from "next/navigation";
 
 interface KakaoShareButtonProps {
@@ -56,55 +55,51 @@ export default function KakaoShareButton({
 
   if (type === "small") {
     return (
-      <KakaoProvider>
-        <div className="relative group inline-block">
-          <button
-            onClick={handleShare}
-            className="bg-[#FEE500] p-2 rounded cursor-pointer shadow
+      <div className="relative group inline-block">
+        <button
+          onClick={handleShare}
+          className="bg-[#FEE500] p-2 rounded cursor-pointer shadow
             flex gap-2 justify-center items-center active:scale-95 transition text-black"
-          >
-            <Image
-              src="/kakao-icon.svg"
-              alt="카카오 아이콘"
-              width={15}
-              height={15}
-              priority
-              draggable={false}
-            />
-          </button>
+        >
+          <Image
+            src="/kakao-icon.svg"
+            alt="카카오 아이콘"
+            width={15}
+            height={15}
+            priority
+            draggable={false}
+          />
+        </button>
 
-          {/* Hover 시 나타나는 label */}
-          <span
-            className="absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 w-28 rounded-lg
+        {/* Hover 시 나타나는 label */}
+        <span
+          className="absolute bottom-full mb-1.5 left-1/2 -translate-x-1/2 w-28 rounded-lg
           bg-black text-white text-xs px-2 py-1 text-center
           opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-          >
-            카카오톡으로 공유
-            {/* 꼬리 삼각형 */}
-            <span className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-black"></span>
-          </span>
-        </div>
-      </KakaoProvider>
+        >
+          카카오톡으로 공유
+          {/* 꼬리 삼각형 */}
+          <span className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-black"></span>
+        </span>
+      </div>
     );
   }
 
   return (
-    <KakaoProvider>
-      <button
-        onClick={handleShare}
-        className="bg-[#FEE500] px-4 py-2 rounded-2xl cursor-pointer mx-auto shadow
+    <button
+      onClick={handleShare}
+      className="bg-[#FEE500] px-4 py-2 rounded-2xl cursor-pointer mx-auto shadow
         flex gap-2 justify-center items-center active:scale-95 transition text-black"
-      >
-        <Image
-          src="/kakao-icon.svg"
-          alt="카카오 아이콘"
-          width={20}
-          height={20}
-          priority
-          draggable={false}
-        />
-        <span>카카오톡 공유</span>
-      </button>
-    </KakaoProvider>
+    >
+      <Image
+        src="/kakao-icon.svg"
+        alt="카카오 아이콘"
+        width={20}
+        height={20}
+        priority
+        draggable={false}
+      />
+      <span>카카오톡 공유</span>
+    </button>
   );
 }

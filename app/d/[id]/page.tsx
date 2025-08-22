@@ -1,5 +1,3 @@
-import Card from "@/components/DeokdamCard";
-import KakaoShareButton from "@/components/KakaoShare";
 import { notFound, unauthorized } from "next/navigation";
 import { findUser, getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
@@ -7,6 +5,8 @@ import Comments from "@/components/Comments";
 import { Suspense } from "react";
 import { CommentsLoading } from "./loading";
 import CommentForm from "@/components/CommentForm";
+import DeokdamContent from "@/components/Card/DeokdamContent";
+import { KakaoProvider, KakaoShareButton } from "@/components/Kakao";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -32,7 +32,7 @@ export default async function DeokdamDetailPage({
 
   return (
     <div className="space-y-10">
-      <Card
+      <DeokdamContent
         key={deokdam.id}
         nickname={deokdam.nickname}
         payload={deokdam.payload}
@@ -41,9 +41,15 @@ export default async function DeokdamDetailPage({
         isOwner={isOwner}
       >
         <div className="w-full flex justify-end">
-          <KakaoShareButton type="small" id={id} accessToken={deokdam.token} />
+          <KakaoProvider>
+            <KakaoShareButton
+              type="small"
+              id={id}
+              accessToken={deokdam.token}
+            />
+          </KakaoProvider>
         </div>
-      </Card>
+      </DeokdamContent>
       <Suspense fallback={<CommentsLoading />}>
         <Comments deokdamId={deokdam.id} />
       </Suspense>

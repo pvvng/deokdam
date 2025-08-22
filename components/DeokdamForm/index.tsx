@@ -9,7 +9,7 @@ import { postDeokdam } from "@/lib/actions";
 import Input from "../FormItems/Input";
 
 interface DeokDamFormProps {
-  onActionEnd?: ({ id, token }: { id: string; token: string | null }) => void;
+  onActionEnd?: ({ id, token }: { id: string; token: string }) => void;
 }
 
 export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
@@ -44,6 +44,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   };
 
   useEffect(() => {
+    // 초기화
     const initState = () => {
       setOpenAtOption("chuseok");
       setCustomOpenAt(null);

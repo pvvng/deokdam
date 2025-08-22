@@ -6,8 +6,10 @@ interface ChatProps {
   type: "start" | "end";
   text: string;
   interval: number;
+  onTypingEnd?: () => void;
 }
-export default function Chat({ type, text, interval }: ChatProps) {
+
+export default function Chat({ type, text, interval, onTypingEnd }: ChatProps) {
   return (
     <div
       className={`chat ${
@@ -19,7 +21,12 @@ export default function Chat({ type, text, interval }: ChatProps) {
           type === "start" ? "" : "bg-blue-600 text-white"
         }`}
       >
-        <TypingText text={text} interval={interval} autoScroll={false} />
+        <TypingText
+          text={text}
+          interval={interval}
+          autoScroll={false}
+          onTypingEnd={onTypingEnd}
+        />
       </div>
     </div>
   );
