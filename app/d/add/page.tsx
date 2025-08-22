@@ -1,4 +1,4 @@
-import DeokdamFormWithShareModal from "@/components/DeokdamForm/Container";
+import { DeokdamFormWithShareModal } from "@/components/Form";
 
 export const metadata = {
   title: "작성하기",

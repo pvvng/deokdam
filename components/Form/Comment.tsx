@@ -1,9 +1,8 @@
 "use client";
 
-import Button from "../FormItems/Button";
-import Input from "../FormItems/Input";
 import { postComment } from "@/lib/actions";
 import { useActionState } from "react";
+import { Button, Input } from "../FormItems";
 
 export default function CommentForm({ deokdamId }: { deokdamId: string }) {
   const [state, action] = useActionState(postComment, null);

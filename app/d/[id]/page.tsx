@@ -1,12 +1,12 @@
 import { notFound, unauthorized } from "next/navigation";
-import { findUser, getDeokdam } from "./actions";
+import { findUser, getComments, getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
-import Comments from "@/components/Comments";
 import { Suspense } from "react";
 import { CommentsLoading } from "./loading";
-import CommentForm from "@/components/CommentForm";
 import DeokdamContent from "@/components/Card/DeokdamContent";
-import { KakaoProvider, KakaoShareButton } from "@/components/Kakao";
+import { KakaoShareButton } from "@/components/Kakao";
+import { CommentForm } from "@/components/Form";
+import CommentCard from "@/components/CommentCard";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -41,19 +41,41 @@ export default async function DeokdamDetailPage({
         isOwner={isOwner}
       >
         <div className="w-full flex justify-end">
-          <KakaoProvider>
-            <KakaoShareButton
-              type="small"
-              id={id}
-              accessToken={deokdam.token}
-            />
-          </KakaoProvider>
+          <KakaoShareButton type="small" id={id} accessToken={deokdam.token} />
         </div>
       </DeokdamContent>
+
       <Suspense fallback={<CommentsLoading />}>
         <Comments deokdamId={deokdam.id} />
       </Suspense>
+
       <CommentForm deokdamId={deokdam.id} />
     </div>
+  );
+}
+
+interface CommentsProps {
+  deokdamId: string;
+}
+
+async function Comments({ deokdamId }: CommentsProps) {
+  const comments = await getComments({ deokdamId });
+
+  return (
+    <section className="space-y-5">
+      <p className="text-lg font-semibold">댓글 ({comments.length})</p>
+      {comments.length === 0 ? (
+        <p>아직 작성된 댓글이 없습니다.</p>
+      ) : (
+        comments.map((comment) => (
+          <CommentCard
+            key={comment.id}
+            nickname={comment.nickname}
+            createdAt={formatDateKorean(new Date(comment.createdAt))}
+            payload={comment.payload}
+          />
+        ))
+      )}
+    </section>
   );
 }

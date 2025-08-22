@@ -1,10 +1,10 @@
 import PhoneContent from "@/components/Phone/MainContent";
-import RabbitsChats from "@/components/ChatDemo";
 import Phone from "@/components/Phone";
 import Image from "next/image";
 import RotateStarBackground from "@/components/RotateStarBackground";
-import DeokdamFormWithShareModal from "@/components/DeokdamForm/Container";
 import Chat from "@/components/Chat";
+import DemoChats from "@/components/Chat/Demo";
+import { DeokdamFormWithShareModal } from "@/components/Form";
 
 export default async function Home() {
   return (
@@ -18,7 +18,7 @@ export default async function Home() {
           </p>
         </div>
         <section className="w-full max-w-96 h-96 mx-auto relative rounded-2xl overflow-hidden">
-          <RabbitsChats />
+          <DemoChats />
           <RotateStarBackground />
           <Image
             src="/덕담_토끼.webp"

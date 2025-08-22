@@ -1,12 +1,9 @@
 "use client";
 
-import TextArea from "../FormItems/TextArea";
-import Button from "../FormItems/Button";
-import CapsuleSelector from "../FormItems/CapsuleSelector";
 import DatePicker from "../DatePicker";
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { postDeokdam } from "@/lib/actions";
-import Input from "../FormItems/Input";
+import { Button, CapsuleSelector, Input, TextArea } from "../FormItems";
 
 interface DeokDamFormProps {
   onActionEnd?: ({ id, token }: { id: string; token: string }) => void;

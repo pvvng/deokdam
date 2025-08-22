@@ -7,6 +7,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { paperlogy } from "./@fonts/paperlogy";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { KakaoProvider } from "@/components/Kakao";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,10 +39,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${paperlogy.variable} antialiased`}
       >
         <div id="portal" />
-        <div className="p-5 font-paperlogy max-w-screen-sm mx-auto">
-          <Navbar />
-          {children}
-        </div>
+        <KakaoProvider>
+          <div className="p-5 font-paperlogy max-w-screen-sm mx-auto">
+            <Navbar />
+            {children}
+          </div>
+        </KakaoProvider>
       </body>
     </html>
   );

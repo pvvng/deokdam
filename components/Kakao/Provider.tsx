@@ -1,3 +1,5 @@
+"use client";
+
 import Script from "next/script";
 
 export default function KakaoProvider({
@@ -5,10 +7,11 @@ export default function KakaoProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const scriptSrc = "https://developers.kakao.com/sdk/js/kakao.min.js";
   return (
     <>
       <Script
-        src="https://developers.kakao.com/sdk/js/kakao.min.js"
+        src={scriptSrc}
         strategy="afterInteractive"
         onLoad={() => {
           if (window.Kakao && !window.Kakao.isInitialized()) {

@@ -3,7 +3,7 @@
 import { TypingText } from "@pvvng/react-typing-text";
 import { useState } from "react";
 
-export default function RabbitsChats() {
+export default function DemoChats() {
   const [isTypingEnd, setIsTypingEnd] = useState(false);
 
   return (
