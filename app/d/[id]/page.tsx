@@ -41,7 +41,7 @@ export default async function DeokdamDetailPage({
   if (!isAuthorized) return unauthorized();
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-15">
       <DeokdamCard
         key={deokdam.id}
         nickname={deokdam.nickname}
@@ -56,7 +56,7 @@ export default async function DeokdamDetailPage({
       </DeokdamCard>
 
       <Suspense fallback={<CommentsLoading />}>
-        <Comments deokdamId={deokdam.id} />
+        <Comments deokdamId={deokdam.id} deokdamUserId={deokdam.userId} />
       </Suspense>
 
       <CommentForm deokdamId={deokdam.id} />
@@ -66,9 +66,10 @@ export default async function DeokdamDetailPage({
 
 interface CommentsProps {
   deokdamId: string;
+  deokdamUserId: string;
 }
 
-async function Comments({ deokdamId }: CommentsProps) {
+async function Comments({ deokdamId, deokdamUserId }: CommentsProps) {
   const comments = await getComments({ deokdamId });
 
   return (
@@ -83,6 +84,7 @@ async function Comments({ deokdamId }: CommentsProps) {
             nickname={comment.nickname}
             createdAt={formatDateKorean(new Date(comment.createdAt))}
             payload={comment.payload}
+            isAuthor={deokdamUserId === comment.userId}
           />
         ))
       )}

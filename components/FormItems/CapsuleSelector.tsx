@@ -20,7 +20,7 @@ export default function CapsuleSelector({
   value,
   onChange,
   renderSelector,
-  errors,
+  errors = [],
 }: CapsuleSelectorProps) {
   const handleClick = (value: string) => {
     onChange?.(value);
@@ -39,7 +39,7 @@ export default function CapsuleSelector({
             ${
               value && value === opt.value
                 ? "bg-blue-600 text-white"
-                : "bg-neutral-100 text-gray-800"
+                : "bg-white text-gray-800"
             }
           `}
           >
@@ -49,15 +49,11 @@ export default function CapsuleSelector({
         {/* option 이외의 커스텀 셀렉터 렌더 */}
         {renderSelector}
       </div>
-      {errors && (
-        <div className="space-y-1">
-          {errors.map((error) => (
-            <p key={error} className="text-sm text-red-600">
-              {error}
-            </p>
-          ))}
-        </div>
-      )}
+      {errors.map((error, index) => (
+        <p key={index} className="text-red-600 text-sm">
+          {error}
+        </p>
+      ))}
     </div>
   );
 }

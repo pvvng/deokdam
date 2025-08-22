@@ -59,7 +59,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative space-y-5 p-5 rounded-2xl border border-neutral-100 shadow"
+      className="relative space-y-5 p-5 rounded-2xl bg-gray-200 shadow"
     >
       <div className="text-start">
         <CapsuleSelector

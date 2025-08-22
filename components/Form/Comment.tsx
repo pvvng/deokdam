@@ -8,7 +8,7 @@ export default function CommentForm({ deokdamId }: { deokdamId: string }) {
   const [state, action] = useActionState(postComment, null);
 
   return (
-    <form action={action} className="space-y-5">
+    <form action={action} className="space-y-5 bg-gray-200 p-5 rounded-2xl">
       <p className="text-lg font-semibold">댓글 작성하기</p>
       <input
         defaultValue={deokdamId}
