@@ -42,6 +42,7 @@ export default async function UserPage({ searchParams }: UserPageProps) {
               className="transition hover:bg-neutral-100 rounded-2xl block"
             >
               <Card
+                nickname={deokdam.nickname}
                 payload={deokdam.payload}
                 openAt={formatDateKorean(new Date(deokdam.openAt))}
                 isOpen={isDeokdamOpen(new Date(deokdam.openAt))}

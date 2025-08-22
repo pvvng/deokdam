@@ -6,6 +6,7 @@ import CapsuleSelector from "../FormItems/CapsuleSelector";
 import DatePicker from "../DatePicker";
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { postDeokdam } from "@/lib/actions";
+import Input from "../FormItems/Input";
 
 interface DeokDamFormProps {
   onActionEnd?: ({ id, token }: { id: string; token: string | null }) => void;
@@ -16,6 +17,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   const [openAtOption, setOpenAtOption] = useState<string | null>("chuseok");
   const [customOpenAt, setCustomOpenAt] = useState<Date | null>(null);
   const [payload, setPayload] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const handleOpenAtOptionChange = (option: string) => {
     setCustomOpenAt(null); // 커스텀 날짜 초기화
@@ -56,8 +58,11 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
   }, [state?.data?.id]);
 
   return (
-    <form onSubmit={handleSubmit} className="relative space-y-5">
-      <section className="space-y-3 text-start border border-neutral-100 rounded-2xl p-5 shadow">
+    <form
+      onSubmit={handleSubmit}
+      className="relative space-y-5 p-5 rounded-2xl border border-neutral-100 shadow"
+    >
+      <div className="text-start">
         <CapsuleSelector
           label="덕담 개봉 가능일"
           options={openAtOptions}
@@ -71,11 +76,22 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
           }
           errors={state?.error?.openAt}
         />
-      </section>
+      </div>
+
+      <Input
+        name="nickname"
+        placeholder="덕담을 보낼 사람에게 보여질 별명을 입력하세요."
+        minLength={0}
+        maxLength={20}
+        required
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+        errors={state?.error?.nickname}
+      />
 
       <TextArea
         name="deokdam"
-        placeholder="덕담을 입력해보세요!"
+        placeholder="덕담을 입력하세요"
         required
         minLength={0}
         maxLength={3000}

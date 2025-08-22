@@ -30,6 +30,7 @@ export default async function DeokdamDetailPage({
     <div>
       <Card
         key={deokdam.id}
+        nickname={deokdam.nickname}
         payload={deokdam.payload}
         openAt={formatDateKorean(new Date(deokdam.openAt))}
         isOpen={isDeokdamOpen(new Date(deokdam.openAt))}

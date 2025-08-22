@@ -12,6 +12,7 @@ import { revalidateTag } from "next/cache";
 export async function postDeokdam(_: unknown, formdata: FormData) {
   const data = {
     deokdam: formdata.get("deokdam"),
+    nickname: formdata.get("nickname"),
     openAt: formdata.get("openAt"),
   };
 
@@ -34,6 +35,7 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
     data: {
       openAt: parseOpenAt(result.data.openAt),
       payload: result.data.deokdam,
+      nickname: result.data.nickname,
       userId,
       token: randomUUID(),
     },
@@ -67,6 +69,11 @@ const postSchema = z.object({
     .string()
     .min(1, "덕담을 입력해주세요.")
     .max(3000, "덕담은 최대 3000자까지 입력 가능합니다.")
+    .refine((val) => val.trim().length > 0, "공백만 입력할 수 없습니다."),
+  nickname: z
+    .string()
+    .min(1, "별명을 입력해주세요.")
+    .max(20, "별명은 최대 20자까지 입력 가능합니다.")
     .refine((val) => val.trim().length > 0, "공백만 입력할 수 없습니다."),
   openAt: z.union(
     [
