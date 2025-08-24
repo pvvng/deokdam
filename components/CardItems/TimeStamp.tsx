@@ -11,7 +11,10 @@ export default function TimeStamp({
   time,
   label,
 }: TimeStampProps) {
-  const colorClass = timeColor === "blue" ? "text-blue-600" : "text-gray-500";
+  const colorClass =
+    timeColor === "blue"
+      ? "text-blue-600"
+      : "text-gray-500 dark:text-neutral-300";
 
   return (
     <p className="text-xs">

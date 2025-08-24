@@ -28,7 +28,10 @@ export default function DeokdamCard({
   children,
 }: CardProps) {
   return (
-    <div className="w-full space-y-3 min-h-30 p-5 rounded-2xl border border-neutral-100 shadow">
+    <div
+      className="w-full space-y-3 min-h-30 p-5 rounded-2xl border border-neutral-100 shadow
+    dark:bg-neutral-800 dark:border-neutral-800"
+    >
       <div className="flex gap-3 items-center">
         <IconBadge
           isActive={isOpen}

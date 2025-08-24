@@ -1,3 +1,3 @@
 export default function DashedHorizon() {
-  return <hr className="border-dashed border-gray-200" />;
+  return <hr className="border-dashed border-gray-200 dark:border-gray-600" />;
 }

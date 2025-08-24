@@ -1,5 +1,8 @@
 "use client";
 
+import { faEnvelopeOpen } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 interface CapsuleOption {
   label: string;
   value: string;
@@ -28,8 +31,11 @@ export default function CapsuleSelector({
 
   return (
     <div className="space-y-3">
-      <p className="font-medium">{label}</p>
-      <div className="flex gap-2 items-center flex-wrap">
+      <p className="font-medium sm:text-base text-sm flex sm:justify-start justify-center items-center gap-1">
+        <FontAwesomeIcon icon={faEnvelopeOpen} />
+        <span>{label}</span>
+      </p>
+      <div className="flex gap-2 items-center flex-wrap sm:justify-start justify-center">
         {options.map((opt) => (
           <button
             key={opt.value}
@@ -39,7 +45,7 @@ export default function CapsuleSelector({
             ${
               value && value === opt.value
                 ? "bg-blue-600 text-white"
-                : "bg-neutral-200 text-gray-800"
+                : "bg-neutral-200 text-gray-800 dark:bg-neutral-800 dark:text-neutral-50"
             }
           `}
           >

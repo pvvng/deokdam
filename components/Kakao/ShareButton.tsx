@@ -88,8 +88,8 @@ export default function KakaoShareButton({
   return (
     <button
       onClick={handleShare}
-      className="bg-[#FEE500] px-4 py-2 rounded-2xl cursor-pointer mx-auto shadow
-        flex gap-2 justify-center items-center active:scale-95 transition text-black"
+      className="bg-[#FEE500] px-4 py-2 rounded-2xl cursor-pointer mx-auto shadow sm:text-base text-sm
+      flex gap-2 justify-center items-center active:scale-95 transition text-black"
     >
       <Image
         src="/kakao-icon.svg"

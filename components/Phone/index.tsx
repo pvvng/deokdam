@@ -1,6 +1,6 @@
 export default function Phone({ children }: { children?: React.ReactNode }) {
   return (
-    <div className="font-paperlogy relative mx-auto w-[280px] h-[520px] bg-black rounded-[35px] border border-neutral-800 p-[7px] shadow-xl group">
+    <div className="font-paperlogy relative mx-auto w-full max-w-[280px] h-[520px] bg-black rounded-[35px] border border-neutral-800 p-[7px] shadow-xl group">
       {/* buttons */}
       <div className="absolute rounded-r-2xl w-[3px] h-[45px] top-[30%] -right-1 bg-gradient-to-r from-[#111] via-[#333] to-[#595959]"></div>
       <div className="absolute rounded-r-2xl w-[3px] h-[30px] top-[26%] -left-1 bg-gradient-to-r from-[#111] via-[#333] to-[#595959] scale-x-[-1]"></div>

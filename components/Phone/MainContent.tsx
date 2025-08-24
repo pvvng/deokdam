@@ -4,17 +4,17 @@ export default function PhoneContent() {
   return (
     <div className="relative w-full h-full bg-blue-200 py-8 px-5 space-y-3">
       <div className="chat chat-end">
-        <div className="chat-bubble bg-blue-600 text-white shadow">
+        <div className="chat-bubble bg-blue-600 text-white shadow sm:text-base text-sm">
           <p>다음에 밥 한 번 먹자!</p>
         </div>
       </div>
       <div className="chat chat-start">
-        <div className="chat-bubble bg-neutral-50 shadow">
-          <p>그래 시간 될 때 말해줘.</p>
+        <div className="chat-bubble bg-neutral-50 text-black shadow sm:text-base text-sm">
+          <p>응 시간 될 때 말해줘.</p>
         </div>
       </div>
       <div className="chat chat-end">
-        <div className="chat-bubble bg-blue-600 text-white shadow">
+        <div className="chat-bubble bg-blue-600 text-white shadow sm:text-base text-sm">
           <p>응 연락할게~</p>
         </div>
       </div>

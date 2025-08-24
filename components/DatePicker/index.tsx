@@ -35,7 +35,7 @@ export default function DatePicker({ value, onChange }: DatePickerProps) {
         className={`px-4 py-1 rounded-full shadow text-sm cursor-pointer ${
           value !== null
             ? "bg-blue-600 text-white"
-            : "bg-neutral-200 text-gray-800"
+            : "bg-neutral-200 text-gray-800 dark:bg-neutral-800 dark:text-neutral-50"
         }`}
         onClick={() => setOpen((prev) => !prev)}
       >

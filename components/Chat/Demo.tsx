@@ -9,7 +9,7 @@ export default function DemoChats() {
   return (
     <div className="absolute inset-3 z-5">
       <div className="chat chat-start">
-        <div className="chat-bubble shadow">
+        <div className="chat-bubble shadow text-sm sm:text-base bg-neutral-100 text-black">
           <TypingText
             text="풍성한 한가위 보내고, 맛있는 거 많이 먹어!"
             autoScroll={false}
@@ -20,7 +20,7 @@ export default function DemoChats() {
       </div>
       {isTypingEnd && (
         <div className="chat chat-end">
-          <div className="chat-bubble bg-blue-600 text-white shadow">
+          <div className="chat-bubble bg-blue-600 text-white shadow text-sm sm:text-base">
             <TypingText
               text="다들 건강하고 웃는 일만 가득하길!"
               autoScroll={false}

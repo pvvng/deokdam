@@ -10,10 +10,12 @@ export default function Home() {
   return (
     <div className="space-y-20">
       <section className="text-center space-y-5">
-        <h1 className="text-6xl font-bold">덕담</h1>
+        <h1 className="text-4xl sm:text-6xl font-bold">덕담</h1>
         <div>
-          <p className="text-neutral-600">추석엔 마음을 나누는 덕담 한 마디.</p>
-          <p className="text-neutral-600">
+          <p className="text-neutral-600 dark:text-neutral-400 sm:text-base text-sm">
+            추석엔 마음을 나누는 덕담 한 마디.
+          </p>
+          <p className="text-neutral-600 dark:text-neutral-400 sm:text-base text-sm">
             덕담에서 가족·친구·연인에게 당신의 따뜻한 말을 전하세요.
           </p>
         </div>
@@ -32,8 +34,8 @@ export default function Home() {
       </section>
 
       <section className="space-y-5 text-center">
-        <h2 className="text-3xl font-bold">요즘..</h2>
-        <div className="text-neutral-600">
+        <h2 className="sm:text-3xl text-xl font-bold">요즘..</h2>
+        <div className="text-neutral-600 dark:text-neutral-400 sm:text-base text-sm">
           <p>주변 사람들에게 연락 잘 하고 있나요?</p>
           <p>
             바쁘게 지내다 보면 소중한 사람들에게 마음을 전하는 걸 깜빡할 때도
@@ -47,8 +49,8 @@ export default function Home() {
       </section>
 
       <section className="space-y-5 text-center">
-        <h2 className="text-3xl font-bold">이번 추석엔</h2>
-        <div className="text-neutral-600">
+        <h2 className="sm:text-3xl text-xl font-bold">이번 추석엔</h2>
+        <div className="text-neutral-600 dark:text-neutral-400 sm:text-base text-sm">
           <strong className="font-bold text-blue-600 text-lg">덕담</strong>을
           활용해 보세요.
           <p>
@@ -60,8 +62,8 @@ export default function Home() {
       </section>
 
       <section className="space-y-5 text-center">
-        <h2 className="text-3xl font-bold">덕담에선</h2>
-        <div className="text-neutral-600">
+        <h2 className="sm:text-3xl text-xl font-bold">덕담에선</h2>
+        <div className="text-neutral-600 dark:text-neutral-400 sm:text-base text-sm">
           <p>간단하게 안부인사를 보내고 받을 수 있어요.</p>
           <p>작은 마음이 모여 큰 행복이 되는 경험, 지금 바로 시작해 보세요.</p>
         </div>
