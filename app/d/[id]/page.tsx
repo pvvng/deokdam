@@ -42,7 +42,7 @@ export default async function DeokdamDetailPage({
 
   const isOpen = isDeokdamOpen(new Date(deokdam.openAt));
   return (
-    <div className="space-y-5">
+    <div className="space-y-10">
       <DeokdamCard
         isOpen={isOpen}
         isOwner={isOwner}
@@ -59,13 +59,9 @@ export default async function DeokdamDetailPage({
         </div>
       </DeokdamCard>
 
-      <hr className="border-neutral-200 border-dashed" />
-
       <Suspense fallback={<CommentsLoading />}>
         <Comments deokdamId={deokdam.id} deokdamUserId={deokdam.userId} />
       </Suspense>
-
-      <hr className="border-neutral-200 border-dashed" />
 
       <CommentForm deokdamId={deokdam.id} />
     </div>
