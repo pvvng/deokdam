@@ -16,6 +16,7 @@ interface CardProps {
   openAt: string;
   isOpen: boolean;
   isOwner: boolean;
+  isLinkCard?: boolean;
   children?: React.ReactNode;
 }
 
@@ -25,12 +26,14 @@ export default function DeokdamCard({
   openAt,
   isOpen,
   isOwner,
+  isLinkCard = false,
   children,
 }: CardProps) {
   return (
     <div
-      className="w-full space-y-3 min-h-30 p-5 rounded-2xl border border-neutral-100 shadow
-    dark:bg-neutral-800 dark:border-neutral-800"
+      className={`${
+        isLinkCard && "hover:bg-neutral-200 dark:hover:bg-neutral-900"
+      } transition w-full space-y-3 min-h-30 p-5 rounded-2xl shadow dark:bg-neutral-800 dark:border-neutral-800`}
     >
       <div className="flex gap-3 items-center">
         <IconBadge

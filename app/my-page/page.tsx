@@ -36,17 +36,14 @@ export default async function UserPage({ searchParams }: UserPageProps) {
           <NoDataComponent tab={tab} />
         ) : (
           data.map((deokdam) => (
-            <Link
-              key={deokdam.id}
-              href={`/d/${deokdam.id}`}
-              className="transition hover:bg-neutral-100 rounded-2xl block"
-            >
+            <Link key={deokdam.id} href={`/d/${deokdam.id}`} className="block">
               <DeokdamCard
                 nickname={deokdam.nickname}
                 payload={deokdam.payload}
                 openAt={formatDateKorean(new Date(deokdam.openAt))}
                 isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
                 isOwner={deokdam.userId === userId}
+                isLinkCard
               />
             </Link>
           ))
