@@ -19,12 +19,12 @@ export default function ShareDeokDamModal({
       <Overlay onClose={onClose}>
         <div
           onClick={(e) => e.stopPropagation()}
-          className="relative shrink-0 w-full max-w-80 aspect-square rounded-2xl bg-white 
+          className="relative shrink-0 w-full max-w-80 aspect-square rounded-2xl
           font-paperlogy text-center overflow-hidden"
         >
           {/* content */}
           <div
-            className="w-full absolute top-1/2 left-1/2 
+            className="w-full absolute top-1/2 left-1/2
             -translate-x-1/2 -translate-y-1/2 space-y-2 z-10 text-white p-5"
           >
             <p className="font-semibold sm:text-2xl text-lg">

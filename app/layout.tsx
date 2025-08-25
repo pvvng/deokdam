@@ -8,6 +8,7 @@ import { paperlogy } from "./@fonts/paperlogy";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { KakaoProvider } from "@/components/Kakao";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
             <Navbar />
             {children}
           </div>
+          <Footer />
         </KakaoProvider>
       </body>
     </html>
