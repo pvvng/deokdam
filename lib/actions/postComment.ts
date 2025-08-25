@@ -29,6 +29,25 @@ export async function postComment(_: unknown, formdata: FormData) {
   const userdata = await findOrCreateUser(sessionId);
   const userId = userdata.id;
 
+  // ==============================
+  // 1분 이내 댓글 작성 확인 (도배 방지)
+  // ==============================
+  const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+  const recentComment = await db.comment.findFirst({
+    where: {
+      userId,
+      postId: result.data.deokdamId,
+      createdAt: { gt: oneMinuteAgo },
+    },
+  });
+
+  if (recentComment) {
+    return createActionResult({
+      success: false,
+      error: { payload: ["잠시 후 다시 시도해주세요"] },
+    });
+  }
+
   const createCommentRes = await db.comment.create({
     data: {
       userId,

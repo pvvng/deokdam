@@ -31,6 +31,26 @@ export async function postDeokdam(_: unknown, formdata: FormData) {
   const userdata = await findOrCreateUser(sessionId);
   const userId = getObjectId(userdata.id);
 
+  // ==============================
+  // 1분 이내 작성 글 확인 (도배 방지)
+  // ==============================
+  const oneMinuteAgo = new Date(Date.now() - 60 * 1000);
+  const recentPost = await db.post.findFirst({
+    where: {
+      userId,
+      createdAt: {
+        gt: oneMinuteAgo,
+      },
+    },
+  });
+
+  if (recentPost) {
+    return createActionResult({
+      success: false,
+      error: { deokdam: ["잠시 후 다시 시도해주세요."] },
+    });
+  }
+
   const postRes = await db.post.create({
     data: {
       openAt: parseOpenAt(result.data.openAt),
