@@ -4,6 +4,7 @@ import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
 import { getSession } from "@/lib/session";
 import { Deokdam } from "@/types/deokdam";
 import Link from "next/link";
+import { AnimatedElement } from "@/components/AnimatedElement";
 
 export const metadata = {
   title: "마이페이지",
@@ -37,14 +38,16 @@ export default async function UserPage({ searchParams }: UserPageProps) {
         ) : (
           data.map((deokdam) => (
             <Link key={deokdam.id} href={`/d/${deokdam.id}`} className="block">
-              <DeokdamCard
-                nickname={deokdam.nickname}
-                payload={deokdam.payload}
-                openAt={formatDateKorean(new Date(deokdam.openAt))}
-                isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
-                isOwner={deokdam.userId === userId}
-                isLinkCard
-              />
+              <AnimatedElement>
+                <DeokdamCard
+                  nickname={deokdam.nickname}
+                  payload={deokdam.payload}
+                  openAt={formatDateKorean(new Date(deokdam.openAt))}
+                  isOpen={isDeokdamOpen(new Date(deokdam.openAt))}
+                  isOwner={deokdam.userId === userId}
+                  isLinkCard
+                />
+              </AnimatedElement>
             </Link>
           ))
         )}

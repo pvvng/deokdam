@@ -6,6 +6,7 @@ import { findUser, getComments, getDeokdam } from "./actions";
 import { formatDateKorean, isDeokdamOpen } from "@/lib/utils";
 import { Suspense } from "react";
 import { notFound, unauthorized } from "next/navigation";
+import { AnimatedElement } from "@/components/AnimatedElement";
 
 interface DeokdamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -43,27 +44,33 @@ export default async function DeokdamDetailPage({
   const isOpen = isDeokdamOpen(new Date(deokdam.openAt));
   return (
     <div className="space-y-10">
-      <DeokdamCard
-        isOpen={isOpen}
-        isOwner={isOwner}
-        nickname={deokdam.nickname}
-        payload={deokdam.payload}
-        openAt={formatDateKorean(new Date(deokdam.openAt))}
-      >
-        <div className="w-full flex justify-end">
-          <KakaoShareButton
-            type="small"
-            id={deokdam.id}
-            accessToken={deokdam.token}
-          />
-        </div>
-      </DeokdamCard>
+      <AnimatedElement>
+        <DeokdamCard
+          isOpen={isOpen}
+          isOwner={isOwner}
+          nickname={deokdam.nickname}
+          payload={deokdam.payload}
+          openAt={formatDateKorean(new Date(deokdam.openAt))}
+        >
+          <div className="w-full flex justify-end">
+            <KakaoShareButton
+              type="small"
+              id={deokdam.id}
+              accessToken={deokdam.token}
+            />
+          </div>
+        </DeokdamCard>
+      </AnimatedElement>
 
       <Suspense fallback={<CommentsLoading />}>
-        <Comments deokdamId={deokdam.id} deokdamUserId={deokdam.userId} />
+        <AnimatedElement>
+          <Comments deokdamId={deokdam.id} deokdamUserId={deokdam.userId} />
+        </AnimatedElement>
       </Suspense>
 
-      <CommentForm deokdamId={deokdam.id} />
+      <AnimatedElement>
+        <CommentForm deokdamId={deokdam.id} />
+      </AnimatedElement>
     </div>
   );
 }
