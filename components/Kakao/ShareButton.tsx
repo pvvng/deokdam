@@ -38,7 +38,7 @@ export default function KakaoShareButton({
         title: "덕담이 도착했어요!",
         description: "내게 도착한 덕담 확인하기",
         imageUrl:
-          "https://imagedelivery.net/MR01-6_39Z4fkK0Q1BsXww/e07a76d1-da5b-42be-30a7-1f14a1b7c200/public",
+          "https://imagedelivery.net/MR01-6_39Z4fkK0Q1BsXww/a2e5e33d-255a-46da-988a-d33c72255600/public",
         link: {
           mobileWebUrl: `${window.location.origin}/api/share?${params}`,
           webUrl: `${window.location.origin}/api/share?${params}`,
