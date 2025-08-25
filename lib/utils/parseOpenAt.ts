@@ -26,7 +26,7 @@ export function parseOpenAt(value: string): Date {
   // "YYYY. M. D." 형식 처리
   const match = value.match(/^(\d{4})\.\s(\d{1,2})\.\s(\d{1,2})\.$/);
   if (match) {
-    const [_, year, month, day] = match;
+    const [, year, month, day] = match;
     return new Date(
       Date.UTC(Number(year), Number(month) - 1, Number(day), 0, 0, 0) -
         9 * 60 * 60 * 1000

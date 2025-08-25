@@ -4,7 +4,7 @@ config.autoAddCss = false;
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { paperlogy } from "./@fonts/paperlogy";
+import { paperlogy } from "./fonts/paperlogy";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { KakaoProvider } from "@/components/Kakao";

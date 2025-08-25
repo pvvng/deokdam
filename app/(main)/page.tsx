@@ -2,7 +2,6 @@ import PhoneContent from "@/components/Phone/MainContent";
 import Phone from "@/components/Phone";
 import Image from "next/image";
 import RotateStarBackground from "@/components/RotateStarBackground";
-import Chat from "@/components/Chat";
 import DemoChats from "@/components/Chat/Demo";
 import { DeokdamFormWithShareModal } from "@/components/Form";
 import { AnimatedElement } from "@/components/AnimatedElement";

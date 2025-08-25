@@ -54,7 +54,7 @@ export default function DeokDamForm({ onActionEnd }: DeokDamFormProps) {
       initState();
       onActionEnd?.({ id, token });
     }
-  }, [state?.data?.id]);
+  }, [state, onActionEnd]);
 
   return (
     <form onSubmit={handleSubmit} className="relative space-y-5">

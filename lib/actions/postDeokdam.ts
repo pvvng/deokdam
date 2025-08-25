@@ -8,7 +8,6 @@ import { getSession } from "../session";
 import { randomUUID } from "crypto";
 import z from "zod";
 import { revalidateTag } from "next/cache";
-import { redirect } from "next/navigation";
 
 export async function postDeokdam(_: unknown, formdata: FormData) {
   const data = {
