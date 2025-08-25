@@ -30,7 +30,7 @@ export default async function UserPage({ searchParams }: UserPageProps) {
   }
 
   return (
-    <div>
+    <div className="min-h-100">
       <TabNav activeTab={tab} />
       <section className="space-y-3 mt-5">
         {data.length === 0 ? (
